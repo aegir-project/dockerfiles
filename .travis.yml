@@ -6,4 +6,4 @@ services:
 before_install:
   - docker pull debian:jessie
   - docker build -t aegir .
-  
+  - docker run -d -p 80:80 --name aegir_hostmaster
