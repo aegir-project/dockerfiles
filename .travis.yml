@@ -1,9 +1,39 @@
+language: generic
+
 sudo: required
+
+env:
+  - test: Ubuntu 14.04 Apache
+    distribution: ubuntu
+    version: 14.04
+    init: /sbin/init
+    run_opts: ""
+
+addons:
+  hosts:
+    - aegir.travis
+    - sitetest.aegir.travis
 
 services:
   - docker
 
 before_install:
-  - docker pull debian:jessie
-  - docker build -t aegir .
-  - docker run -d -p 80:80 --name aegir_hostmaster
+  - 'sudo docker pull ${distribution}:${version}'
+  - 'sudo docker build --rm=true --file=Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible tests'
+
+script:
+  - 'sudo docker run --detach --name aegir_hostmaster -h aegir.travis --add-host "sitetest.aegir.travis":127.0.0.1 ${distribution}-${version}:ansible "${init}"
+
+  # Install script.
+  - 'sudo docker exec --tty aegir_hostmaster env TRAVIS=true TERM=xterm wget https://github.com/opendevshop/devshop/releases/download/1.0.0-beta10/install.sh && bash install.sh --hostname=aegir.travis'
+
+  # Turn off hosting queued, and the hosting task queue.
+  - 'sudo docker exec aegir_hostmaster env sudo su - aegir -c "drush @hostmaster dis hosting_queued -y -v"'
+  - 'sudo docker exec aegir_hostmaster env sudo su - aegir -c "drush @hostmaster vset hosting_queue_tasks_enabled 0 -y"'
+
+  # Build and Run Tests
+#  - 'sudo docker exec aegir_hostmaster env TERM=xterm sudo su - -c "cd /usr/share/devshop/tests && composer update"'
+#  - 'sudo docker exec devshop_container env TERM=xterm sudo su - aegir -c "devshop devmaster:test"'
+
+  # Stop container.
+  - 'sudo docker stop devshop_container'
