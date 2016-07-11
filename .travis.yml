@@ -22,10 +22,7 @@ before_install:
   - 'sudo docker build --rm=true --file=Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible tests'
 
 script:
-  - 'sudo docker run --detach --name aegir_hostmaster -h aegir.travis --add-host "sitetest.aegir.travis":127.0.0.1 ${distribution}-${version}:ansible "${init}"
-
-  # Install script.
-  - 'sudo docker exec --tty aegir_hostmaster env TRAVIS=true TERM=xterm wget https://github.com/opendevshop/devshop/releases/download/1.0.0-beta10/install.sh && bash install.sh --hostname=aegir.travis'
+  - 'sudo docker run --detach --name aegir_hostmaster -h aegir.travis --add-host "sitetest.aegir.travis":127.0.0.1 ${distribution}-${version}:ansible "${init}"'
 
   # Turn off hosting queued, and the hosting task queue.
   - 'sudo docker exec aegir_hostmaster env sudo su - aegir -c "drush @hostmaster dis hosting_queued -y -v"'
