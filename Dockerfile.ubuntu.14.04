@@ -1,15 +1,44 @@
 FROM ubuntu:14.04
-RUN apt-get update -qq
 
-# Install Ansible
-RUN sed -i 's/101/0/' /usr/sbin/policy-rc.d
-RUN apt-get install -y -qq software-properties-common git git curl
-RUN apt-add-repository -y ppa:ansible/ansible
-RUN apt-get update -qq
-RUN apt-get install -y ansible wget -qq
+RUN apt-get update -qq && apt-get install -y -qq\
+  apache2 \
+  php5 \
+  php5-cli \
+  php5-gd \
+  php5-mysql \
+  php-pear \
+  postfix \
+  sudo \
+  rsync \
+  git-core \
+  unzip \
+  curl \
+  wget \
+  mysql-client
 
-# Install Ansible inventory file
-RUN echo "[local]\nlocalhost ansible_connection=local devshop_install_profile=hostmaster" > /etc/ansible/hosts
+RUN adduser --system --group --home /var/aegir aegir
+RUN adduser aegir www-data
+RUN a2enmod rewrite
+RUN ln -s /var/aegir/config/apache.conf /etc/apache2/conf-available/aegir.conf
+RUN ln -s /etc/apache2/conf-available/aegir.conf /etc/apache2/conf-enabled/aegir.conf
 
-RUN wget https://github.com/opendevshop/devshop/releases/download/1.0.0-beta10/install.sh && \
-  bash install.sh --hostname=aegir.docker
+COPY sudoers-aegir /etc/sudoers.d/aegir
+RUN chmod 0440 /etc/sudoers.d/aegir
+
+RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet
+RUN cp composer.phar /usr/local/bin/composer
+
+RUN wget http://files.drush.org/drush.phar -O - -q > /usr/local/bin/drush
+RUN chmod +x /usr/local/bin/composer
+RUN chmod +x /usr/local/bin/drush
+
+USER aegir
+RUN drush dl --destination=/var/aegir/.drush provision-7
+RUN drush cc drush
+
+USER root
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+USER aegir
+ENTRYPOINT ["docker-entrypoint.sh"]
