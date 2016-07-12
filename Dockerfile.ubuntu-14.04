@@ -51,3 +51,4 @@ VOLUME /var/aegir
 
 USER aegir
 ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["drush @hostmaster hosting-queued"]
