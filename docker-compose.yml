@@ -12,6 +12,7 @@ services:
     depends_on:
       - database
     environment:
+      VIRTUAL_HOST: aegir.docker
       MYSQL_ROOT_PASSWORD: strongpassword
 
   database:
