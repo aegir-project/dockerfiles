@@ -5,4 +5,4 @@ Feature: Aegir UI
 
   Scenario: Log in and poke around.
     Given I am on the homepage
-    Then I click "Log In"
+    Then I should see "Access denied. You must log in to view this page."
