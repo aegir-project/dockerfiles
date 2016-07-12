@@ -59,6 +59,12 @@ This image will also make contributing and testing much, much easier.
 
   That's it!
 
+  You can access the container via terminal with docker exec:
+
+        docker exec -ti aegirdocker_hostmaster_1 bash
+
+  Since the user of the container is already set to `aegir`, you can just run "bash".
+
 ## Tech Notes
 
 ### Hostnames
@@ -81,4 +87,6 @@ Turns out, this results in a REALLY fast Aegir server!
 
 # Next Steps
 
-I believe we could figure out to install Hostmaster in the image, then use docker-entrypoint.sh to change the hostname
+1. Figure out how to install Hostmaster in the image, then use docker-entrypoint.sh to change the hostname dynamically.
+2. Publish to http://hub.docker.com
+3.
