@@ -44,5 +44,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 COPY docker-entrypoint-tests.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint-tests.sh
 
+VOLUME /var/aegir
+
 USER aegir
 ENTRYPOINT ["docker-entrypoint.sh"]
