@@ -25,8 +25,9 @@ drush @hostmaster uli
 
 # Run some tests.
 cd /var/aegir/tests
+composer update
 composer install
-bin/behat -dl
+bin/behat
 
 # Run the hosting queue
 #drush @hostmaster en hosting_queued -y
