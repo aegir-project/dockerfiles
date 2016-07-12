@@ -19,18 +19,19 @@ services:
 
 before_install:
   - 'sudo docker pull ${distribution}:${version}'
-  - 'sudo docker build --rm=true --file=Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible tests'
+  - 'sudo docker build --rm=true --file=Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:hostmaster .'
 
 script:
-  - 'sudo docker run --detach --name aegir_hostmaster -h aegir.travis --add-host "sitetest.aegir.travis":127.0.0.1 ${distribution}-${version}:ansible "${init}"'
+#  - 'sudo docker run --detach --name aegir_hostmaster -h aegir.travis --add-host "sitetest.aegir.travis":127.0.0.1 ${distribution}-${version}:ansible "${init}"'
+  - 'cd tests && sudo docker-compose up --abort-on-container-exit'
 
   # Turn off hosting queued, and the hosting task queue.
-  - 'sudo docker exec aegir_hostmaster env sudo su - aegir -c "drush @hostmaster dis hosting_queued -y -v"'
-  - 'sudo docker exec aegir_hostmaster env sudo su - aegir -c "drush @hostmaster vset hosting_queue_tasks_enabled 0 -y"'
+#  - 'sudo docker exec aegir_hostmaster env sudo su - aegir -c "drush @hostmaster dis hosting_queued -y -v"'
+#  - 'sudo docker exec aegir_hostmaster env sudo su - aegir -c "drush @hostmaster vset hosting_queue_tasks_enabled 0 -y"'
 
   # Build and Run Tests
 #  - 'sudo docker exec aegir_hostmaster env TERM=xterm sudo su - -c "cd /usr/share/devshop/tests && composer update"'
 #  - 'sudo docker exec devshop_container env TERM=xterm sudo su - aegir -c "devshop devmaster:test"'
 
   # Stop container.
-  - 'sudo docker stop devshop_container'
+  - 'sudo docker-compose stop'
