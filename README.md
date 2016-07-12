@@ -32,6 +32,11 @@ This image will also make contributing and testing much, much easier.
     127.0.0.1  aegir.docker  # If running native linux
     192.168.99.100  aegir.docker  # If running on OSx, or using default docker-machine
 
+4. Build the image. (This won't be needed once we publish.)
+
+
+    docker build -t aegir -f Dockerfile.ubuntu.14.04 .
+
 4. Run docker compose up.
 
 
