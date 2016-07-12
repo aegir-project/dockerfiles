@@ -1,3 +1,24 @@
+What is Aegir?
+==============
+
+Aegir is a free and open source hosting system for Drupal, CiviCRM, and Wordpress.
+
+Designed for mass Drupal hosting, Aegir can launch new sites with a single form submission or API call (See [Hosting Services](http://drupal.org/project/hosting_services).
+
+Aegir itself is built on Drupal and Drush, allowing you to tap into the large contributed module community.
+
+For more information, visit aegirproject.org
+
+How to use this image
+=====================
+
+This image requires a database server, and uses the MYSQL_ROOT_PASSWORD environment variable to install.
+
+    $ docker run --name my_hostmaster --link database:mysql -d  -e MYSQL_ROOT_PASSWORD -p 80:80 aegir/hostmaster
+
+
+# DEVELOPMENT
+
 # Aegir on Docker
 
 This project is an experiment to (finally) get Aegir working *inside* Docker.
