@@ -5,7 +5,7 @@ services:
   hostmaster:
     image: aegir
     ports:
-      - 12345:80
+      - 43917:80
     hostname: aegir.docker
     links:
       - database

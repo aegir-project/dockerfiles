@@ -53,7 +53,7 @@ This image will also make contributing and testing much, much easier.
       hostmaster_1 |
       hostmaster_1 | ==============================================================================
 
-  Visit that link, but change the port to 12345. This is set in the docker-compose.yml file. You may change it if you wish.
+  Visit that link, but change the port to 43917. This is set in the docker-compose.yml file. You may change it if you wish.
 
   http://aegir.docker:12345/user/reset/1/abscdf....abcde/login
 
