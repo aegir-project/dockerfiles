@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+
+  hostmaster:
+
+    entrypoint: docker-entrypoint-development.sh
+
+    image: aegir
+    ports:
+      - 43917:80
+    hostname: aegir.docker
+    links:
+      - database
+    depends_on:
+      - database
+    environment:
+      VIRTUAL_HOST: aegir.docker
+      MYSQL_ROOT_PASSWORD: strongpassword
+    volumes:
+      - ./aegir:/var/aegir
+
+  database:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: strongpassword
