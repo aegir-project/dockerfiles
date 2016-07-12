@@ -92,6 +92,6 @@ Turns out, this results in a REALLY fast Aegir server!
 
 # Next Steps
 
-1. Figure out how to install Hostmaster in the image, then use docker-entrypoint.sh to change the hostname dynamically.
+1. Figure out how to install Hostmaster in the image, then use docker-entrypoint.sh to change the hostname and root mysql password dynamically.
 2. Publish to http://hub.docker.com
-3.
+3. ?
