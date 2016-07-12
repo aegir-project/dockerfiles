@@ -3,8 +3,9 @@
 HOSTNAME=`hostname --fqdn`
 
 # Returns true once mysql can connect.
+# Thanks to http://askubuntu.com/questions/697798/shell-script-how-to-run-script-after-mysql-is-ready
 mysql_ready() {
-	mysqladmin ping --host=database --user=root --password=MYSQL_ROOT_PASSWORD > /dev/null 2>&1
+    mysqladmin ping --host=database --user=root --password=$MYSQL_ROOT_PASSWORD > /dev/null 2>&1
 }
 
 while !(mysql_ready)
