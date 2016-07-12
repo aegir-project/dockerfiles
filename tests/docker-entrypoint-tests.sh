@@ -23,7 +23,10 @@ drush hostmaster-install $HOSTNAME --aegir_db_host=database --aegir_db_pass=$MYS
 # Output a login link. If hostmaster is already installed, `drush hostmaster-install` doesn't give us a link.
 drush @hostmaster uli
 
-# @TODO: Add some tests!
+# Run some tests.
+cd /var/aegir/tests
+composer install
+bin/behat -dl
 
 # Run the hosting queue
 #drush @hostmaster en hosting_queued -y
