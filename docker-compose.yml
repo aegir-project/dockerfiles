@@ -9,6 +9,8 @@ services:
     hostname: aegir.docker
     links:
       - database
+    depends_on:
+      - database
     environment:
       MYSQL_ROOT_PASSWORD: strongpassword
 
