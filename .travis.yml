@@ -18,11 +18,11 @@ services:
   - docker
 
 before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/com
-  pose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
+  - 'sudo rm /usr/local/bin/docker-compose'
+  - 'curl -L https://github.com/docker/com
+  pose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > docker-compose'
+  - 'chmod +x docker-compose'
+  - 'sudo mv docker-compose /usr/local/bin'
   - 'docker-compose --version'
   - 'sudo docker pull ${distribution}:${version}'
   - 'sudo docker build --rm=true --file=Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:hostmaster .'
