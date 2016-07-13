@@ -41,14 +41,8 @@ USER root
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-COPY tests/docker-entrypoint-tests.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint-tests.sh
-
-COPY development/docker-entrypoint-development.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint-development.sh
-
 VOLUME /var/aegir
 
 USER aegir
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["drush @hostmaster hosting-queued"]
+CMD ["drush @hostmaster hosting-queued -v"]
