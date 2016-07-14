@@ -44,7 +44,7 @@ RUN drush cc drush
 
 ENV AEGIR_CLIENT_NAME admin
 ENV AEGIR_CLIENT_EMAIL aegir@aegir.docker
-ENV AEGIR_MAKEFILE /var/aegir/.drush/provision/aegir.makexx
+ENV AEGIR_MAKEFILE /var/aegir/.drush/provision/aegir.make
 
 # docker-entrypoint.sh waits for mysql and runs hostmaster install
 ENTRYPOINT ["docker-entrypoint.sh"]
