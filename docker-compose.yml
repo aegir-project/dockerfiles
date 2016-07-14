@@ -3,7 +3,7 @@ version: '2'
 services:
 
   hostmaster:
-    image: aegir
+    image: aegir/hostmaster
     ports:
       - 80:80
     hostname: aegir.docker
