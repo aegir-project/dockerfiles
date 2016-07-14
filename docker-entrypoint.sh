@@ -24,7 +24,9 @@ drush hostmaster-install -y $HOSTNAME \
   --aegir_db_port=3306 \
   --aegir_db_user=root \
   --aegir_host=$HOSTNAME \
-  --
+  --client_name=$AEGIR_CLIENT_NAME \
+  --client_email=$AEGIR_CLIENT_EMAIL \
+  --makefile=$AEGIR_MAKEFILE
 
 # Output a login link. If hostmaster is already installed, `drush hostmaster-install` doesn't give us a link.
 drush @hostmaster uli
