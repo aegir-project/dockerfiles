@@ -18,7 +18,13 @@ echo "========================="
 echo "Hostname: $HOSTNAME"
 echo "Running: drush hostmaster-install"
 
-drush hostmaster-install $HOSTNAME --aegir_db_host=database --aegir_db_pass=$MYSQL_ROOT_PASSWORD --aegir_db_port=3306 --aegir_db_user=root --aegir_host=$HOSTNAME -y
+drush hostmaster-install -y $HOSTNAME \
+  --aegir_db_host=database \
+  --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
+  --aegir_db_port=3306 \
+  --aegir_db_user=root \
+  --aegir_host=$HOSTNAME \
+  --
 
 # Output a login link. If hostmaster is already installed, `drush hostmaster-install` doesn't give us a link.
 drush @hostmaster uli
