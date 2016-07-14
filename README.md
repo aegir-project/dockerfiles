@@ -114,5 +114,8 @@ Turns out, this results in a REALLY fast Aegir server!
 # Next Steps
 
 1. Figure out how to install Hostmaster in the image, then use docker-entrypoint.sh to change the hostname and root mysql password dynamically.
-2. Publish to http://hub.docker.com
-3. ?
+  UPDATES: 
+    - If we keep the database as a second container, then hostmaster must always be installed at runtime, because the DB doesn't even exist until then.
+    - If we want to release Aegir as a self-contained product, we should think about figuring out how to include everything in one container.  See Rancher Server as an example of this: their container includes a MySQL server: https://github.com/rancher/rancher/tree/master/server
+2. Publish to http://hub.docker.com. DONE: https://hub.docker.com/r/aegir/hostmaster/
+3. Create multiple tagged versions for various OSes, PHP versions, and Aegir releases.
