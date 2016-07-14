@@ -32,17 +32,16 @@ RUN wget http://files.drush.org/drush.phar -O - -q > /usr/local/bin/drush
 RUN chmod +x /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/drush
 
-USER aegir
-RUN drush dl --destination=/var/aegir/.drush provision-7
-RUN drush cc drush
-
-USER root
-
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 VOLUME /var/aegir
 
 USER aegir
+
+RUN drush dl --destination=/var/aegir/.drush provision-7
+RUN drush cc drush
+
+# docker-entrypoint.sh waits for mysql and runs hostmaster install
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["drush @hostmaster hosting-queued -v"]
