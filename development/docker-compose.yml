@@ -8,7 +8,7 @@ services:
 
     image: aegir
     ports:
-      - 43917:80
+      - 80:80
     hostname: aegir.docker
     links:
       - database
