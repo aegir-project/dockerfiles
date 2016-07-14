@@ -53,17 +53,18 @@ This image will also make contributing and testing much, much easier.
     127.0.0.1  aegir.docker  # If running native linux
     192.168.99.100  aegir.docker  # If running on OSx, or using default docker-machine
 
-4. Build the image. (This won't be needed once we publish.)
+4. Build the image. (Optional)
 
+  If you made your own changes to the dockerfile, you can build your own image:
 
-    docker build -t aegir -f Dockerfile.ubuntu.14.04 .
+    docker build -t aegir/hostmaster -f Dockerfile.ubuntu.14.04 .
 
 4. Run docker compose up.
 
 
     docker-compose up
 
-  If this is the first time, hostmaster will install. If not, the database will be read from the volume as already having installed, so it will just run the drush commands to prepare the server.
+  If this is the first time, it will download the base images and hostmaster will install. If not, the database will be read from the volume as already having installed, so it will just run the drush commands to prepare the server.
 
   You will see the hostmaster install success output:
 
@@ -79,7 +80,7 @@ This image will also make contributing and testing much, much easier.
       hostmaster_1 |
       hostmaster_1 | ==============================================================================
 
-  Visit that link, but change the port to 12345. This is set in the docker-compose.yml file. You may change it if you wish.
+  Visit that link, but change the port if you had to change it in docker-compose.
 
   http://aegir.docker:12345/user/reset/1/abscdf....abcde/login
 
