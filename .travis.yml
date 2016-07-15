@@ -2,6 +2,11 @@ language: generic
 
 sudo: required
 
+env:
+  globaL:
+    - DOCKER_VERSION=1.10.1-0~trusty
+    - DOCKER_COMPOSE_VERSION=1.7.1
+
 #env:
 #  - test: Ubuntu 14.04 Apache
 #    distribution: ubuntu
@@ -18,12 +23,20 @@ services:
   - docker
 
 before_install:
-  - 'sudo rm /usr/local/bin/docker-compose'
-  - 'curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compose-Linux-x86_64 > docker-compose'
-  - 'chmod +x docker-compose'
-  - 'sudo mv docker-compose /usr/local/bin'
-  - 'docker-compose --version'
-  - 'sudo docker build --rm=true --file=Dockerfile --tag=aegir/hostmaster .'
+  # list docker-engine versions
+  - apt-cache madison docker-engine
+
+  # upgrade docker-engine to specific version
+  - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION}
+
+  # reinstall docker-compose at specific version
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker --version'
+  - docker-compose --version
+  - sudo docker build --rm=true --file=Dockerfile --tag=aegir/hostmaster .
 
 script:
 #  - 'sudo docker run --detach --name aegir_hostmaster -h aegir.travis --add-host "sitetest.aegir.travis":127.0.0.1 ${distribution}-${version}:ansible "${init}"'
