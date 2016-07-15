@@ -94,6 +94,20 @@ This image will also make contributing and testing much, much easier.
 
 ## Tech Notes
 
+### Developing Dockerfiles
+
+It can be confusing and monotonous to build the image, docker compose up, kill, remove, then rebuild, repeat...
+
+ So I use the following command to ensure fully deleted containers and volumes, a rebuilt image, and a quick exit if things fail (--abort-on-container-exit)
+
+    docker-compose kill ; docker-compose rm -vf ; docker build -t aegir/hostmaster ../ ; docker-compose up --abort-on-container-exit
+
+You only need to run this full command if you change the Dockerfile or the docker-entrypoint-*.sh files.
+
+If you are only changing the docker-compose.yml file, sometimes you can just run:
+
+    docker-compose restart
+
 ### Hostnames
 
 The trickiest part of getting Aegir Hostmaster running in docker was the hostname situation. Aegir installs itself based on the servers hostname. This hostname is used for the server nodes and for the drupal front-end,
