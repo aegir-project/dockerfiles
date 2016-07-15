@@ -2,12 +2,12 @@ language: generic
 
 sudo: required
 
-env:
-  - test: Ubuntu 14.04 Apache
-    distribution: ubuntu
-    version: 14.04
-    init: /sbin/init
-    run_opts: ""
+#env:
+#  - test: Ubuntu 14.04 Apache
+#    distribution: ubuntu
+#    version: 14.04
+#    init: /sbin/init
+#    run_opts: ""
 
 addons:
   hosts:
@@ -23,13 +23,13 @@ before_install:
   - 'chmod +x docker-compose'
   - 'sudo mv docker-compose /usr/local/bin'
   - 'docker-compose --version'
-  - 'sudo docker pull ${distribution}:${version}'
-  - 'sudo docker build --rm=true --file=Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:hostmaster .'
+  - 'sudo docker build --rm=true --file=Dockerfile --tag=aegir/hostmaster .'
 
 script:
 #  - 'sudo docker run --detach --name aegir_hostmaster -h aegir.travis --add-host "sitetest.aegir.travis":127.0.0.1 ${distribution}-${version}:ansible "${init}"'
   - 'cd tests'
   - 'sudo docker-compose up --abort-on-container-exit'
+  - 'sudo docker exec tests_hostmaster_1 /var/aegir/tests/bin/behat'
 
   # Turn off hosting queued, and the hosting task queue.
 #  - 'sudo docker exec aegir_hostmaster env sudo su - aegir -c "drush @hostmaster dis hosting_queued -y -v"'
