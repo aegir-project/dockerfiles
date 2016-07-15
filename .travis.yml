@@ -40,6 +40,7 @@ before_install:
 
 script:
 #  - 'sudo docker run --detach --name aegir_hostmaster -h aegir.travis --add-host "sitetest.aegir.travis":127.0.0.1 ${distribution}-${version}:ansible "${init}"'
+  - 'git clone git@github.com:aegir-project/tests.git'
   - 'cd tests'
 
   # The test run is included in the docker-entrypoint-tests.sh file.
