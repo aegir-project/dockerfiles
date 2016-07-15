@@ -45,5 +45,7 @@ drush @hostmaster uli
 # Run the hosting queue
 drush @hostmaster en hosting_queued -y
 
+drush cc drush
+
 # Run whatever is the Docker CMD.
 `$@`
