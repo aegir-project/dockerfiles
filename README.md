@@ -108,6 +108,10 @@ If you are only changing the docker-compose.yml file, sometimes you can just run
 
     docker-compose restart
 
+Or you can kill then up the containers if you need the "CMD" or "command" to run again:
+
+    docker-compose kill; docker-compose up
+
 ### Hostnames
 
 The trickiest part of getting Aegir Hostmaster running in docker was the hostname situation. Aegir installs itself based on the servers hostname. This hostname is used for the server nodes and for the drupal front-end,
