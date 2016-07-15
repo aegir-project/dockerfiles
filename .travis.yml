@@ -41,8 +41,9 @@ before_install:
 script:
 #  - 'sudo docker run --detach --name aegir_hostmaster -h aegir.travis --add-host "sitetest.aegir.travis":127.0.0.1 ${distribution}-${version}:ansible "${init}"'
   - 'cd tests'
+
+  # The test run is included in the docker-entrypoint-tests.sh file.
   - 'sudo docker-compose up --abort-on-container-exit'
-  - 'sudo docker exec tests_hostmaster_1 /var/aegir/tests/bin/behat'
 
   # Turn off hosting queued, and the hosting task queue.
 #  - 'sudo docker exec aegir_hostmaster env sudo su - aegir -c "drush @hostmaster dis hosting_queued -y -v"'
