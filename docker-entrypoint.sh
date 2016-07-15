@@ -19,7 +19,13 @@ echo "Hostname: $HOSTNAME"
 echo "Makefile: $AEGIR_MAKEFILE"
 echo "Client Name: $AEGIR_CLIENT_NAME"
 echo "Client Email: $AEGIR_CLIENT_EMAIL"
-echo "========================="
+
+echo "-------------------------"
+echo "Installing provision..."
+drush dl --destination=/var/aegir/.drush provision-7
+drush cc drush
+
+echo "-------------------------"
 echo "Running: drush hostmaster-install"
 
 drush hostmaster-install -y $HOSTNAME \

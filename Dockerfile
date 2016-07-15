@@ -39,9 +39,6 @@ VOLUME /var/aegir
 
 USER aegir
 
-RUN drush dl --destination=/var/aegir/.drush provision-7
-RUN drush cc drush
-
 ENV AEGIR_CLIENT_NAME admin
 ENV AEGIR_CLIENT_EMAIL aegir@aegir.docker
 ENV AEGIR_MAKEFILE /var/aegir/.drush/provision/aegir.make
