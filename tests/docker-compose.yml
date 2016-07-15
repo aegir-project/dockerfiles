@@ -11,6 +11,8 @@ services:
       - database
     depends_on:
       - database
+    entrypoint:
+      - docker-entrypoint-tests.sh
     environment:
       VIRTUAL_HOST: aegir.docker
       MYSQL_ROOT_PASSWORD: strongpassword
