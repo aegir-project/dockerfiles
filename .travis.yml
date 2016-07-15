@@ -44,4 +44,4 @@ script:
 
   # Tests are included in the docker-compose.yml file in the tests repo.
   - pwd
-  - sudo docker-compose up --abort-on-container-exit --rm
+  - sudo docker-compose run hostmaster --rm
