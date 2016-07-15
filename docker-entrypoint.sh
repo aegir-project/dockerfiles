@@ -16,6 +16,10 @@ done
 
 echo "========================="
 echo "Hostname: $HOSTNAME"
+echo "Makefile: $AEGIR_MAKEFILE"
+echo "Client Name: $AEGIR_CLIENT_NAME"
+echo "Client Email: $AEGIR_CLIENT_EMAIL"
+echo "========================="
 echo "Running: drush hostmaster-install"
 
 drush hostmaster-install -y $HOSTNAME \
