@@ -22,7 +22,7 @@ echo "Client Email: $AEGIR_CLIENT_EMAIL"
 
 echo "-------------------------"
 echo "Installing provision..."
-drush dl --destination=/var/aegir/.drush provision-7
+drush dl --destination=/var/aegir/.drush provision-7 -y
 drush cc drush
 
 echo "-------------------------"
