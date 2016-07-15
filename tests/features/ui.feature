@@ -7,6 +7,7 @@ Feature: Aegir UI
   Scenario: Log in and poke around.
     Given I am on the homepage
     Then I should see "Access denied. You must log in to view this page."
+    When I run drush "@hostmaster hosting-tasks"
     Then I am logged in as a user with the "administrator" role
     And I am on the homepage
     And I should see "aegir.docker"
