@@ -1,3 +1,6 @@
+# This docker-compose.yml file is for use on travis.
+# The docker-entry-point-tests.sh file includes the test preparation and running.
+
 version: '2'
 
 services:
