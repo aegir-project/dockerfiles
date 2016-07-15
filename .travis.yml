@@ -37,10 +37,11 @@ before_install:
   - docker --version
   - docker-compose --version
   - sudo docker build --rm=true --file=Dockerfile --tag=aegir/hostmaster .
-
-script:
-  - git clone git@github.com:aegir-project/tests.git
+  - git clone http://github.com/aegir-project/tests.git
   - cd tests
 
+script:
+
   # Tests are included in the docker-compose.yml file in the tests repo.
+  - pwd
   - sudo docker-compose up --abort-on-container-exit
