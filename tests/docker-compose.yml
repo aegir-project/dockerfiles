@@ -19,7 +19,7 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - ./:/var/aegir/tests
+      - ./:/var/aegir/tests-source
 
   database:
     image: mariadb
