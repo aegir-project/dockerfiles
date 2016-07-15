@@ -16,6 +16,8 @@ services:
     environment:
       VIRTUAL_HOST: aegir.docker
       MYSQL_ROOT_PASSWORD: strongpassword
+    tty: true
+    stdin_open: true
     volumes:
       - ./:/var/aegir/tests
 
