@@ -45,4 +45,4 @@ ENV AEGIR_MAKEFILE /var/aegir/.drush/provision/aegir.make
 
 # docker-entrypoint.sh waits for mysql and runs hostmaster install
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["drush @hostmaster hosting-queued -v"]
+CMD ["drush @hostmaster hosting-queued"]
