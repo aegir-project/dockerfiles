@@ -35,7 +35,7 @@ RUN chmod +x /usr/local/bin/drush
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-COPY tests/docker-entrypoint-tests.sh /usr/local/bin/
+COPY docker-entrypoint-tests.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint-tests.sh
 
 VOLUME /var/aegir
