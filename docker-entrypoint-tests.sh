@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-mkdir /var/aegir/tests
-cp -rf /var/aegir/tests-source/* /var/aegir/tests
-
 bash docker-entrypoint.sh exit
 
 # Run some tests.
