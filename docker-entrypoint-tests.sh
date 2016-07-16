@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-# The || exit $? is so that this script returns a non-zero exit code if any of the lines fails.
+# Exit on the first failed line.
+set -e
 
 # Prepare hostmaster
-bash docker-entrypoint.sh || exit $?
+bash docker-entrypoint.sh
 
 # Run some tests.
 echo "Preparing tests..."
@@ -15,6 +16,6 @@ then
   cd /var/aegir/tests-writable
 fi
 
-composer update     || exit $?
-composer install    || exit $?
-bin/behat           || exit $?
+composer update
+composer install
+bin/behat
