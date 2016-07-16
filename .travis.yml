@@ -6,6 +6,7 @@ env:
   globaL:
     - DOCKER_VERSION=1.11.2-0~trusty
     - DOCKER_COMPOSE_VERSION=1.7.1
+    - AEGIR_TESTS_VERSION=master
 
 #env:
 #  - test: Ubuntu 14.04 Apache
@@ -39,6 +40,7 @@ before_install:
   - sudo docker build --rm=true --file=Dockerfile --tag=aegir/hostmaster .
   - git clone http://github.com/aegir-project/tests.git
   - cd tests
+  - git checkout $AEGIR_TESTS_VERSION
 
 script:
 
