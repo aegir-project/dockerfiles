@@ -40,7 +40,8 @@ drush hostmaster-install -y --strict=0 $HOSTNAME \
   --client_name=$AEGIR_CLIENT_NAME \
   --client_email=$AEGIR_CLIENT_EMAIL \
   --makefile=$AEGIR_MAKEFILE \
-  --profile=$AEGIR_PROFILE
+  --profile=$AEGIR_PROFILE \
+  --version=$AEGIR_VERSION
 
 # Output a login link. If hostmaster is already installed, `drush hostmaster-install` doesn't give us a link.
 drush @hostmaster uli
