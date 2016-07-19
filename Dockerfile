@@ -42,11 +42,17 @@ VOLUME /var/aegir
 
 USER aegir
 
-ENV AEGIR_CLIENT_NAME admin
+# You may change this environment at run time. User UID 1 is created with this email address.
 ENV AEGIR_CLIENT_EMAIL aegir@aegir.docker
-ENV AEGIR_MAKEFILE /var/aegir/.drush/provision/aegir.make
+ENV AEGIR_CLIENT_NAME admin
 ENV AEGIR_PROFILE hostmaster
-ENV AEGIR_VERSION 7.x-3.x
+
+# For dev images (7.x-3.x branch)
+ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir.make
+
+# For Releases:
+# ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir-release.make?h=7.x-3.6
+
 
 # docker-entrypoint.sh waits for mysql and runs hostmaster install
 ENTRYPOINT ["docker-entrypoint.sh"]

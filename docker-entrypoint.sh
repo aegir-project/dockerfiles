@@ -41,7 +41,17 @@ drush hostmaster-install -y --strict=0 $HOSTNAME \
   --client_email=$AEGIR_CLIENT_EMAIL \
   --makefile=$AEGIR_MAKEFILE \
   --profile=$AEGIR_PROFILE \
-  --version=$AEGIR_VERSION
+  --version=docker
+
+  # The option "version" in this command simply defines the folder that the
+  # platform is placed in.
+  #
+  #   /var/aegir/$AEGIR_PROFILE-$AEGIR_VERSION becomes
+  #   /var/aegir/hostmaster-7.x-3.x
+  #
+  # Since we are using docker volumes, and we don't yet have a
+  # strategy for using hostmaster-migrate for upgrades, we are hard coding the
+  # AEGIR_VERSION to 'docker' to simplify the upgrade process.
 
 # Output a login link. If hostmaster is already installed, `drush hostmaster-install` doesn't give us a link.
 drush @hostmaster uli
