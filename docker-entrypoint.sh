@@ -17,14 +17,10 @@ done
 echo "========================="
 echo "Hostname: $HOSTNAME"
 echo "Makefile: $AEGIR_MAKEFILE"
+echo "Profile: $AEGIR_PROFILE"
+echo "Version: $AEGIR_VERSION"
 echo "Client Name: $AEGIR_CLIENT_NAME"
 echo "Client Email: $AEGIR_CLIENT_EMAIL"
-
-echo "-------------------------"
-echo "Installing provision..."
-mkdir /var/aegir/.drush/commands
-drush dl --destination=/var/aegir/.drush/commands provision-7 -y
-drush cc drush
 
 echo "-------------------------"
 echo "Running: drush hostmaster-install"
@@ -42,7 +38,7 @@ drush hostmaster-install -y --strict=0 $HOSTNAME \
   --client_email=$AEGIR_CLIENT_EMAIL \
   --makefile=$AEGIR_MAKEFILE \
   --profile=$AEGIR_PROFILE \
-  --version=docker
+  --version=$AEGIR_VERSION
 
   # The option "version" in this command simply defines the folder that the
   # platform is placed in.
