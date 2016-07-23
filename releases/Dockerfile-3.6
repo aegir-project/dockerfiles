@@ -56,7 +56,7 @@ ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir.make
 ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir-release.make?h=$AEGIR_VERSION
 
 # Install Provision
-RUN mkdir /var/aegir/.drush/commands
+RUN mkdir -p /var/aegir/.drush/commands
 RUN drush dl --destination=/var/aegir/.drush/commands provision-$PROVISION_VERSION -y
 RUN drush cc drush
 
