@@ -46,13 +46,22 @@ USER aegir
 ENV AEGIR_CLIENT_EMAIL aegir@aegir.docker
 ENV AEGIR_CLIENT_NAME admin
 ENV AEGIR_PROFILE hostmaster
+ENV AEGIR_VERSION 7.x-3.x
+ENV PROVISION_VERSION 7.x-3.x
 
 # For dev images (7.x-3.x branch)
 ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir.make
 
 # For Releases:
-# ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir-release.make?h=7.x-3.6
+ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir-release.make?h=$AEGIR_VERSION
 
+# Install Provision
+RUN mkdir -p /var/aegir/.drush/commands
+RUN drush dl --destination=/var/aegir/.drush/commands provision-$PROVISION_VERSION -y
+RUN drush cc drush
+
+# Prepare hostmaster platform.
+RUN drush make $AEGIR_MAKEFILE /var/aegir/$AEGIR_PROFILE-$AEGIR_VERSION
 
 # docker-entrypoint.sh waits for mysql and runs hostmaster install
 ENTRYPOINT ["docker-entrypoint.sh"]
