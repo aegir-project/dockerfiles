@@ -2,6 +2,9 @@
 
 HOSTNAME=`hostname --fqdn`
 
+# Install provision
+drush dl provision-$PROVISION_VERSION --destination=/var/aegir/.drush/commands -y
+
 # Returns true once mysql can connect.
 # Thanks to http://askubuntu.com/questions/697798/shell-script-how-to-run-script-after-mysql-is-ready
 mysql_ready() {
