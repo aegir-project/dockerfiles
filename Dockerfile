@@ -53,7 +53,7 @@ ENV PROVISION_VERSION 7.x-3.x
 ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir.make
 
 # For Releases:
-ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir-release.make?h=$AEGIR_VERSION
+# ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir-release.make?h=$AEGIR_VERSION
 
 # This isn't working, I think because /var/aegir is set as a volume.
 # I've moved it bak to the docker-entrypoint.sh which allows us to dynamially set the version as an environment variable.
