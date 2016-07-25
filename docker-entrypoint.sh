@@ -32,7 +32,6 @@ echo "Running: drush hostmaster-install"
 # Exit on the first failed line.
 set -e
 
-drush
 drush cc drush
 
 drush hostmaster-install -y --strict=0 $HOSTNAME \
