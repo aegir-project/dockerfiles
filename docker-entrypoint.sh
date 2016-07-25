@@ -3,6 +3,7 @@
 HOSTNAME=`hostname --fqdn`
 
 # Install provision
+echo "Installing provision $PROVISION_VERSION..."
 drush dl provision-$PROVISION_VERSION --destination=/var/aegir/.drush/commands -y
 
 # Returns true once mysql can connect.
