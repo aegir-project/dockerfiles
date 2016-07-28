@@ -4,18 +4,15 @@ services:
 
   hostmaster:
 
-    entrypoint: docker-entrypoint-development.sh
-
-    image: aegir
+    image: aegir/hostmaster
     ports:
       - 80:80
-    hostname: aegir.docker
+    hostname: aegir.local.computer
     links:
       - database
     depends_on:
       - database
     environment:
-      VIRTUAL_HOST: aegir.docker
       MYSQL_ROOT_PASSWORD: strongpassword
     volumes:
       - ./aegir:/var/aegir
