@@ -20,5 +20,7 @@ services:
 
   database:
     image: mariadb
+    logging:
+      driver: none
     environment:
       MYSQL_ROOT_PASSWORD: strongpassword
