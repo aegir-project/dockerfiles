@@ -6,6 +6,7 @@ env:
   globaL:
     - DOCKER_VERSION=1.11.2-0~trusty
     - DOCKER_COMPOSE_VERSION=1.7.1
+    - AEGIR_TESTS_VERSION=master
 
 #env:
 #  - test: Ubuntu 14.04 Apache
@@ -27,7 +28,7 @@ before_install:
   - apt-cache madison docker-engine
 
   # upgrade docker-engine to specific version
-  - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION}
+  - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y -qq docker-engine=${DOCKER_VERSION}
 
   # reinstall docker-compose at specific version
   - sudo rm /usr/local/bin/docker-compose
@@ -37,22 +38,12 @@ before_install:
   - docker --version
   - docker-compose --version
   - sudo docker build --rm=true --file=Dockerfile --tag=aegir/hostmaster .
+  - git clone http://github.com/aegir-project/tests.git
+  - cd tests
+  - git checkout $AEGIR_TESTS_VERSION
 
 script:
-#  - 'sudo docker run --detach --name aegir_hostmaster -h aegir.travis --add-host "sitetest.aegir.travis":127.0.0.1 ${distribution}-${version}:ansible "${init}"'
-  - 'git clone git@github.com:aegir-project/tests.git'
-  - 'cd tests'
 
-  # The test run is included in the docker-entrypoint-tests.sh file.
-  - 'sudo docker-compose up --abort-on-container-exit'
-
-  # Turn off hosting queued, and the hosting task queue.
-#  - 'sudo docker exec aegir_hostmaster env sudo su - aegir -c "drush @hostmaster dis hosting_queued -y -v"'
-#  - 'sudo docker exec aegir_hostmaster env sudo su - aegir -c "drush @hostmaster vset hosting_queue_tasks_enabled 0 -y"'
-
-  # Build and Run Tests
-#  - 'sudo docker exec aegir_hostmaster env TERM=xterm sudo su - -c "cd /usr/share/devshop/tests && composer update"'
-#  - 'sudo docker exec devshop_container env TERM=xterm sudo su - aegir -c "devshop devmaster:test"'
-
-  # Stop container.
-  - 'sudo docker-compose stop'
+  # Tests are included in the docker-compose.yml file in the tests repo.
+  - pwd
+  - sudo docker-compose run hostmaster --rm

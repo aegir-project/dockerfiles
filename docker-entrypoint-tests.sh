@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
 
-mkdir /var/aegir/tests
-cp -rf /var/aegir/tests-source/* /var/aegir/tests
+# Exit on the first failed line.
+set -e
 
-bash docker-entrypoint.sh exit
+# Prepare hostmaster
+bash docker-entrypoint.sh
 
 # Run some tests.
-cd /var/aegir/tests
+echo "Preparing tests..."
+
+if [[ -w /var/aegir/tests ]];
+  cd /var/aegir/tests
+then
+  cp -rf /var/aegir/tests /var/aegir/tests-writable
+  cd /var/aegir/tests-writable
+fi
+
 composer update
 composer install
 bin/behat

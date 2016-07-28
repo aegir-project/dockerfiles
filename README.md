@@ -12,9 +12,70 @@ For more information, visit aegirproject.org
 How to use this image
 =====================
 
-This image requires a database server, and uses the MYSQL_ROOT_PASSWORD environment variable to install.
+## Manual launch:
 
-    $ docker run --name my_hostmaster --link database:mysql -d  -e MYSQL_ROOT_PASSWORD -p 80:80 aegir/hostmaster
+    $ docker run --name database -d -e MYSQL_ROOT_PASSWORD=12345 mariadb 
+    $ docker run --name hostmaster --hostname aegir.local.computer -e MYSQL_ROOT_PASSWORD=12345 --link database:mysql -p 80:80 aegir/hostmaster
+    
+## docker-compose launch:
+
+  1. Create a docker-compose.yml file:
+
+    ```yml
+    version: '2'
+    services:
+    
+      hostmaster:
+        image: aegir/hostmaster
+        ports:
+          - 80:80
+        hostname: local.computer
+        links:
+          - database
+        depends_on:
+          - database
+        environment:
+          MYSQL_ROOT_PASSWORD: strongpassword
+
+      database:
+        image: mariadb
+        environment:
+          MYSQL_ROOT_PASSWORD: strongpassword
+    ```
+  2. run `docker-compose up`.
+  
+## Important parts:
+
+  - MYSQL_ROOT_PASSWORD: 12345.  This must match for database and hostmaster containers.  If launching in production, choose a secure password.
+  - --hostname aegir.local.computer.  The hostname of the container must be set to a fully qualified domain that resolves to the host machine.  *.local.computer resolves to 127.0.0.1, so it is useful to use for launching locally.
+  - -p 80:80.  Since this one container is going to host numerous websites for you, it expects to be assigned to port 80 (unless you are hooking up another container like varnish or a load balancer on the same machine.)
+
+# Environment Variables
+
+## AEGIR_CLIENT_NAME 
+
+*Default: admin*
+
+The username of UID1 and the client node.
+
+## AEGIR_CLIENT_EMAIL 
+*Default: aegir@aegir.docker*
+
+The email for UID1. The welcome email for user 1 gets sent to this address.
+
+## AEGIR_MAKEFILE
+*Defalt: /var/aegir/.drush/provision/aegir.make*
+
+The makefile to use for building the front-end drupal dashboard.  Defaults to hostmaster.
+
+May use https://raw.githubusercontent.com/opendevshop/devshop/1.x/build-devmaster.make to build a devmaster instance.
+
+## AEGIR_PROFILE 
+*Default: hostmaster*
+
+The install profile to run for the drupal front-end. Defaults to hostmaster.
+
+May use "devmaster" if you used the devmaster makefile.
 
 
 # DEVELOPMENT
@@ -23,7 +84,7 @@ This image requires a database server, and uses the MYSQL_ROOT_PASSWORD environm
 
 This project is an experiment to (finally) get Aegir working *inside* Docker.
 
-This is not a project to get Aegir deploying docker.
+This is not a project to get Aegir deploying docker (yet)
 
 An official Aegir docker image will make it really easy to fire up an aegir instance for production or just to try.
 
