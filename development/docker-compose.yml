@@ -10,6 +10,7 @@ services:
     hostname: aegir.local.computer
     links:
       - database
+    restart: always
     depends_on:
       - database
     environment:
