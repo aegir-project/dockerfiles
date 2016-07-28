@@ -49,6 +49,9 @@ ENV AEGIR_PROFILE hostmaster
 ENV AEGIR_VERSION 7.x-3.x
 ENV PROVISION_VERSION 7.x-3.x
 
+# The Hostname of the database server to use
+ENV AEGIR_DATABASE_SERVER database
+
 # For dev images (7.x-3.x branch)
 ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir.make
 

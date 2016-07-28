@@ -20,6 +20,7 @@ done
 
 echo "========================="
 echo "Hostname: $HOSTNAME"
+echo "Database Host: $AEGIR_DATABASE_SERVER"
 echo "Makefile: $AEGIR_MAKEFILE"
 echo "Profile: $AEGIR_PROFILE"
 echo "Version: $AEGIR_VERSION"
@@ -35,7 +36,7 @@ set -e
 drush cc drush
 
 drush hostmaster-install -y --strict=0 $HOSTNAME \
-  --aegir_db_host=database \
+  --aegir_db_host=$AEGIR_DATABASE_SERVER \
   --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
   --aegir_db_port=3306 \
   --aegir_db_user=root \
