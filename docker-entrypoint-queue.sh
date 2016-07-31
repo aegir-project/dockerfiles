@@ -23,7 +23,6 @@ do
 done
 
 echo "Hostmaster detected!"
-echo "waiting for Hostmaster Queue Daemon module to be enabled..."
 
 while !(hostmaster_pm_list_ready)
 do
