@@ -14,7 +14,7 @@ do
    echo "waiting for hostmaster ..."
 done
 
-echo "Hostmaster ready! running $@"
+echo "Hostmaster ready! running drush @hostmaster hosting-queued"
 
 # Run whatever is the Docker CMD.
-`$@`
+drush @hostmaster hosting-queued -v --debug
