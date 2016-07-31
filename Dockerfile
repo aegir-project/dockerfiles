@@ -41,6 +41,11 @@ RUN chmod +x /usr/local/bin/docker-entrypoint-tests.sh
 COPY docker-entrypoint-queue.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint-queue.sh
 
+# Prepare Aegir Logs folder.
+RUN mkdir /var/log/aegir
+RUN chown aegir:aegir /var/log/aegir
+RUN echo 'Hello, Aegir.' > /var/log/aegir/system.log
+
 VOLUME /var/aegir
 
 USER aegir
