@@ -17,4 +17,4 @@ done
 echo "Hostmaster ready! running drush @hostmaster hosting-queued"
 
 # Run whatever is the Docker CMD.
-drush @hostmaster hosting-queued -v --debug
+drush @hostmaster hosting-queued -v
