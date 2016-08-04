@@ -15,11 +15,11 @@ RUN apt-get update -qq && apt-get install -y -qq\
   unzip \
   wget \
   mysql-client
-ARG AEGIR_UID=1000
-ENV AEGIR_UID ${AEGIR_UID:-1000}
+ARG AEGIR_UID=12345
+ENV AEGIR_UID ${AEGIR_UID:-12345}
 
-ARG AEGIR_GID=1000
-ENV AEGIR_GID ${AEGIR_GID:-1000}
+ARG AEGIR_GID=12345
+ENV AEGIR_GID ${AEGIR_GID:-12345}
 
 RUN addgroup --gid $AEGIR_GID aegir
 RUN adduser --uid $AEGIR_UID --gid $AEGIR_GID --system --home /var/aegir aegir
