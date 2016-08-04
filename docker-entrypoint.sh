@@ -3,8 +3,12 @@
 HOSTNAME=`hostname --fqdn`
 
 # Install provision
-echo "Installing provision $PROVISION_VERSION..."
-drush dl provision-$PROVISION_VERSION --destination=/var/aegir/.drush/commands -y
+if ![ -d '/var/aegir/.drush/commands/provision' ]; then
+  echo "Installing provision $PROVISION_VERSION..."
+  drush dl provision-$PROVISION_VERSION --destination=/var/aegir/.drush/commands -y
+else
+  echo "Provision was found. Moving on."
+fi
 
 # Returns true once mysql can connect.
 # Thanks to http://askubuntu.com/questions/697798/shell-script-how-to-run-script-after-mysql-is-ready
