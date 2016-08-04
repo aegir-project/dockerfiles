@@ -3,11 +3,11 @@
 HOSTNAME=`hostname --fqdn`
 
 # Install provision
-if ![ -d '/var/aegir/.drush/commands/provision' ]; then
+if [ -d '/var/aegir/.drush/commands/provision' ] || [ -d '/var/aegir/.drush/provision' ]; then
+  echo "Provision was found. Moving on."
+else
   echo "Installing provision $PROVISION_VERSION..."
   drush dl provision-$PROVISION_VERSION --destination=/var/aegir/.drush/commands -y
-else
-  echo "Provision was found. Moving on."
 fi
 
 # Returns true once mysql can connect.
