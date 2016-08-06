@@ -34,9 +34,6 @@ echo "Client Email: $AEGIR_CLIENT_EMAIL"
 echo "-------------------------"
 echo "Running: drush hostmaster-install"
 
-# Exit on the first failed line.
-set -e
-
 drush cc drush
 
 drush hostmaster-install -y --strict=0 $HOSTNAME \
@@ -60,6 +57,9 @@ drush hostmaster-install -y --strict=0 $HOSTNAME \
   # Since we are using docker volumes, and we don't yet have a
   # strategy for using hostmaster-migrate for upgrades, we are hard coding the
   # AEGIR_VERSION to 'docker' to simplify the upgrade process.
+
+# Exit on the first failed line.
+set -e
 
 # Output a login link. If hostmaster is already installed, `drush hostmaster-install` doesn't give us a link.
 drush @hostmaster uli
