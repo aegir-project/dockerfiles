@@ -67,6 +67,7 @@ ENV AEGIR_CLIENT_NAME admin
 ENV AEGIR_PROFILE hostmaster
 ENV AEGIR_VERSION 7.x-3.x
 ENV PROVISION_VERSION 7.x-3.x
+WORKDIR /var/aegir
 
 # The Hostname of the database server to use
 ENV AEGIR_DATABASE_SERVER database
