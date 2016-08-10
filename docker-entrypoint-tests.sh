@@ -3,12 +3,25 @@
 # Exit on the first failed line.
 set -e
 
-echo '----------------------------'
-echo '  /var/aegir   '
-ls -la /var/aegir
+# Copy provision source, if it exists.
+if [ -d /source/provision ]; then
+  mkdir -p /var/aegir/.drush/commands
+  cp -rf /source/provision /var/aegir/.drush/commands/provision
+fi
 
 # Prepare hostmaster
 bash docker-entrypoint.sh
+
+# Copy modules, themes and drush
+if [ -d /source/modules ]; then
+
+  # Place in sites/domainname.com/modules so that they override modules in distribution
+  cp -rf /source/modules/* /var/aegir/hostmaster-7.x-3.x/sites/aegir.local.computer/modules
+  cp -rf /source/themes/* /var/aegir/hostmaster-7.x-3.x/sites/aegir.local.computer/themes
+  cp -rf /source/drush/* /var/aegir/.drush/source
+
+fi
+
 
 # Run some tests.
 echo "Preparing tests..."
