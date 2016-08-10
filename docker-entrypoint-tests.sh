@@ -3,6 +3,10 @@
 # Exit on the first failed line.
 set -e
 
+echo '----------------------------'
+echo '  /var/aegir   '
+ls -la /var/aegir
+
 # Prepare hostmaster
 bash docker-entrypoint.sh
 
