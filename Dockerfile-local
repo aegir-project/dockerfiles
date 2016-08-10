@@ -1,0 +1,20 @@
+FROM aegir/hostmaster
+
+# Use --build-arg option when running docker build to set these variables.
+# If wish to "mount" a volume to your host, set AEGIR_UID and AEGIR_GIT to your local user's UID.
+# There are both ARG and ENV lines to make sure the value persists.
+# See https://docs.docker.com/engine/reference/builder/#/arg
+
+# To build a local container, run in this folder:
+#   docker build --build-arg AEGIR_UID=1000 -t aegir/hostmaster:local -f Dockerfile-local .
+
+ARG AEGIR_UID=12345
+ENV AEGIR_UID ${AEGIR_UID:-12345}
+
+USER root
+RUN echo "Changing aegir user's UID to ${AEGIR_UID} ..."
+RUN usermod -u $AEGIR_UID aegir
+RUN groupmod -g $AEGIR_UID aegir
+RUN chown aegir:aegir /var/aegir -R
+
+USER aegir
