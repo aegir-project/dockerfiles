@@ -6,6 +6,7 @@ set -e
 # Copy provision source, if it exists.
 if [ -d /source/provision ]; then
   mkdir -p /var/aegir/.drush/commands
+  echo "Copying Provision from /source/provision"
   cp -rf /source/provision /var/aegir/.drush/commands/provision
 fi
 
