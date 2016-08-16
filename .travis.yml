@@ -33,6 +33,7 @@ before_install:
   - sudo mkdir bin
   - sudo chmod 777 bin
 
+  - cd ..
   - sudo docker build --rm -t aegir/hostmaster:local .
 
 script:
