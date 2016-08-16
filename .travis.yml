@@ -38,5 +38,5 @@ before_install:
 
 script:
   # The test run is included in the docker-entrypoint-tests.sh file.
-  - cd travis
+  - cd tests/travis
   - sg - docker -c 'docker-compose run hostmaster --rm'
