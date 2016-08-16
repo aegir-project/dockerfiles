@@ -5,7 +5,7 @@ sudo: required
 # Only run test when committing to a master branch.
 branches:
   only:
-    - 7.x-3.x
+    - master
 
 env:
   globaL:
