@@ -11,7 +11,7 @@ if [ -d /source/provision ]; then
 fi
 
 # Prepare hostmaster
-. docker-entrypoint.sh
+. docker-entrypoint.sh ls -lah /var/aegir
 
 # Run some tests.
 echo "Preparing tests..."
