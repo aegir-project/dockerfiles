@@ -41,9 +41,9 @@ before_install:
   - cd ..
   - sudo docker build --rm -t aegir/hostmaster:local .
 
-script:
   # The test run is included in the docker-entrypoint-tests.sh file.
   - cd tests/travis
+script:
 
   # SG switched the active group to the docker user.
   - sg - docker -c 'docker-compose run hostmaster --rm'
