@@ -11,7 +11,7 @@ if [ -d /source/provision ]; then
 fi
 
 # Prepare hostmaster
-./usr/local/bin/docker-entrypoint.sh
+. docker-entrypoint.sh
 
 # Run some tests.
 echo "Preparing tests..."
