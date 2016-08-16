@@ -11,9 +11,12 @@ fi
 
 # Build hostmaster from source, if it exists
 if [ -d /source/hostmaster ]; then
+  echo "========================="
+  echo " Pre-making hostmaster stack for hostmaster-$AEGIR_VERSION ..."
   drush make http://cgit.drupalcode.org/provision/plain/aegir.make?h=$AEGIR_VERSION /var/aegir/hostmaster-$AEGIR_VERSION
 
   # Copy hostmaster source into codebase.
+  echo " Copying hostmaster into source..."
   cp -rf /source/hostmaster/* /var/aegir/hostmaster-$AEGIR_VERSION/profiles/hostmaster
 fi
 
