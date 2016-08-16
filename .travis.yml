@@ -33,7 +33,7 @@ before_install:
   - sudo mkdir bin
   - sudo chmod 777 bin
 
-  - sudo docker build --rm -taegir/hostmaster:local .
+  - sudo docker build --rm -t aegir/hostmaster:local .
 
 script:
   # The test run is included in the docker-entrypoint-tests.sh file.
