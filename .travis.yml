@@ -44,4 +44,6 @@ before_install:
 script:
   # The test run is included in the docker-entrypoint-tests.sh file.
   - cd tests/travis
+
+  # SG switched the active group to the docker user.
   - sg - docker -c 'docker-compose run hostmaster --rm'
