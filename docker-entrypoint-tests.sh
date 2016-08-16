@@ -9,6 +9,14 @@ if [ -d /source/provision ]; then
   cp -rf /source/provision /var/aegir/.drush/commands/provision
 fi
 
+# Build hostmaster from source, if it exists
+if [ -d /source/hostmaster ]; then
+  drush make http://cgit.drupalcode.org/provision/plain/aegir.make?h=$AEGIR_VERSION /var/aegir/hostmaster-$AEGIR_VERSION
+
+  # Copy hostmaster source into codebase.
+  cp -rf /source/hostmaster/* /var/aegir/hostmaster-$AEGIR_VERSION/profiles/hostmaster
+fi
+
 # Prepare hostmaster
 bash docker-entrypoint.sh
 
