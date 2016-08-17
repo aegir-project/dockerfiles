@@ -46,4 +46,4 @@ before_install:
 script:
 
   # Launch docker-compose.yml file within tests repo.
-  - sudo docker-compose run hostmaster --rm'
+  - sudo docker-compose run hostmaster --rm
