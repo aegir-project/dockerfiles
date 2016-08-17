@@ -45,5 +45,5 @@ before_install:
   - cd tests/travis
 script:
 
-  # SG switched the active group to the docker user.
-  - sg - docker -c 'docker-compose run hostmaster --rm'
+  # Launch docker-compose.yml file within tests repo.
+  - docker-compose run hostmaster --rm'
