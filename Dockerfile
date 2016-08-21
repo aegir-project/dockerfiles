@@ -48,8 +48,11 @@ RUN chmod +x /usr/local/bin/drush
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-COPY docker-entrypoint-tests.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint-tests.sh
+COPY run-tests.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/run-tests.sh
+
+#COPY docker-entrypoint-tests.sh /usr/local/bin/
+#RUN chmod +x /usr/local/bin/docker-entrypoint-tests.sh
 
 COPY docker-entrypoint-queue.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint-queue.sh
