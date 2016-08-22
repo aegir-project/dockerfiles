@@ -41,7 +41,10 @@ before_install:
   - sudo chmod 777 bin
 
   - cd ..
-  - sudo docker build --rm -t aegir/hostmaster:test .
+
+  # First build stock image.
+  - sudo docker build --rm -t aegir/hostmaster .
+  - sudo docker build --rm -t aegir/hostmaster:test -f Dockerfile-test .
   - cd tests/travis
 script:
 
