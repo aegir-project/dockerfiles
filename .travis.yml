@@ -51,7 +51,7 @@ before_install:
   - sudo docker build --rm -t aegir/hostmaster .
 
   # Then build local image. Only difference is UID defaults to 1000
-  - sudo docker build --rm -t aegir/hostmaster:local -f Dockerfile-local .
+  - sudo docker build  --build-arg AEGIR_UID=1000 --rm -t aegir/hostmaster:local -f Dockerfile-local .
 
   # Then build test image. Only difference is CMD defaults to run-tests.sh
   - sudo docker build --rm -t aegir/hostmaster:test -f Dockerfile-test .
