@@ -3,10 +3,15 @@
 HOSTNAME=`hostname --fqdn`
 
 # Install provision
-if [ -d '/var/aegir/.drush/commands/provision' ] || [ -d '/var/aegir/.drush/provision' ]; then
-  echo "Provision was found. Moving on."
+# /source is made available when running tests.
+if [ -f /source/provision/provision.drush.inc ]; then
+  echo "Installing provision from /source/provision..."
+  mkdir -p /var/aegir/.drush/commands
+  cp -rf /source/provision /var/aegir/.drush/commands/provision
+elif [ -d '/var/aegir/.drush/commands/provision' ] || [ -d '/var/aegir/.drush/provision' ]; then
+  echo "Provision already installed."
 else
-  echo "Installing provision $PROVISION_VERSION..."
+  echo "Installing provision $PROVISION_VERSION with drush..."
   drush dl provision-$PROVISION_VERSION --destination=/var/aegir/.drush/commands -y
 fi
 
