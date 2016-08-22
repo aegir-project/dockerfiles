@@ -28,6 +28,11 @@ services:
   - docker
 
 before_install:
+
+  # Debugging users
+  - whoami
+  - id -u
+
   # upgrade docker-engine to specific version
   - git clone http://github.com/aegir-project/tests.git
   - cd tests
