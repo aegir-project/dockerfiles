@@ -56,4 +56,5 @@ before_install:
 script:
 
   # Launch docker-compose.yml file within tests repo.
-  - sudo docker-compose --file docker-compose-tests.yml run hostmaster
+  # Use SG so that we don't have to use sudo. This is so the local user UID and the docker container UID match.
+  - sg - docker -c 'docker-compose run hostmaster --rm'
