@@ -44,7 +44,14 @@ before_install:
 
   # First build stock image.
   - sudo docker build --rm -t aegir/hostmaster .
+
+  # Then build local image. Only difference is UID defaults to 1000
+  - sudo docker build --rm -t aegir/hostmaster:local -f Dockerfile-local .
+
+  # Then build test image. Only difference is CMD defaults to run-tests.sh
   - sudo docker build --rm -t aegir/hostmaster:test -f Dockerfile-test .
+
+  # Go to tests/travis folder. Docker-compose files are in there.
   - cd tests/travis
 script:
 
