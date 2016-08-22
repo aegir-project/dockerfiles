@@ -8,7 +8,6 @@ FROM aegir/hostmaster
 # To build a local container, run in this folder:
 #   docker build --build-arg AEGIR_UID=1000 -t aegir/hostmaster:local -f Dockerfile-local .
 
-ENV AEGIR_UID=1000
 ARG AEGIR_UID=1000
 ENV AEGIR_UID ${AEGIR_UID:-1000}
 
