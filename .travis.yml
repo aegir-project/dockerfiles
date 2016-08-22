@@ -10,6 +10,7 @@ branches:
 env:
   globaL:
     - COMPOSE_HTTP_TIMEOUT=3600
+    - AEGIR_TESTS_VERSION=refactor-entrypoint
 
 #env:
 #  - test: Ubuntu 14.04 Apache
@@ -27,9 +28,15 @@ services:
   - docker
 
 before_install:
+
+  # Debugging users
+  - whoami
+  - id -u
+
   # upgrade docker-engine to specific version
   - git clone http://github.com/aegir-project/tests.git
   - cd tests
+  - git checkout $AEGIR_TESTS_VERSION
   - sudo bash travis/prepare-docker.sh
 
   - sudo mkdir vendor
@@ -39,11 +46,19 @@ before_install:
   - sudo chmod 777 bin
 
   - cd ..
-  - sudo docker build --rm -t aegir/hostmaster:local .
 
-  # The test run is included in the docker-entrypoint-tests.sh file.
+  # First build stock image.
+  - sudo docker build --rm -t aegir/hostmaster .
+
+  # Then build local image. Only difference is UID defaults to 1000
+  - sudo docker build  --build-arg AEGIR_UID=1000 --rm -t aegir/hostmaster:local -f Dockerfile-local .
+
+  # Then build test image. Only difference is CMD defaults to run-tests.sh
+  - sudo docker build --rm -t aegir/hostmaster:test -f Dockerfile-test .
+
+  # Go to tests/travis folder. Docker-compose files are in there.
   - cd tests/travis
 script:
 
   # Launch docker-compose.yml file within tests repo.
-  - sudo docker-compose run hostmaster --rm
+  - sudo docker-compose --file docker-compose-tests.yml run hostmaster
