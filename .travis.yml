@@ -10,6 +10,7 @@ branches:
 env:
   globaL:
     - COMPOSE_HTTP_TIMEOUT=3600
+    - AEGIR_TESTS_VERSION=refactor-entrypoint
 
 #env:
 #  - test: Ubuntu 14.04 Apache
@@ -30,6 +31,7 @@ before_install:
   # upgrade docker-engine to specific version
   - git clone http://github.com/aegir-project/tests.git
   - cd tests
+  - git checkout $AEGIR_TESTS_VERSION
   - sudo bash travis/prepare-docker.sh
 
   - sudo mkdir vendor
