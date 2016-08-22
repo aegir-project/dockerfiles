@@ -41,11 +41,9 @@ before_install:
   - sudo chmod 777 bin
 
   - cd ..
-  - sudo docker build --rm -t aegir/hostmaster:local .
-
-  # The test run is included in the docker-entrypoint-tests.sh file.
+  - sudo docker build --rm -t aegir/hostmaster:test .
   - cd tests/travis
 script:
 
   # Launch docker-compose.yml file within tests repo.
-  - sudo docker-compose run hostmaster
+  - sudo docker-compose --file docker-compose-tests.yml run hostmaster
