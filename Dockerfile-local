@@ -9,10 +9,9 @@ FROM aegir/hostmaster
 #   docker build --build-arg AEGIR_UID=1000 -t aegir/hostmaster:local -f Dockerfile-local .
 
 ARG AEGIR_UID=1000
-ENV AEGIR_UID ${AEGIR_UID:-1000}
 
 USER root
-RUN echo "Changing aegir user's UID to ${AEGIR_UID} ..."
+RUN echo "Changing aegir user's UID to $AEGIR_UID ..."
 RUN usermod -u $AEGIR_UID aegir
 RUN groupmod -g $AEGIR_UID aegir
 RUN chown aegir:aegir /var/aegir -R

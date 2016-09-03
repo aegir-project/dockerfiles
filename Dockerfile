@@ -21,10 +21,10 @@ RUN apt-get update -qq && apt-get install -y -qq\
 # There are both ARG and ENV lines to make sure the value persists.
 # See https://docs.docker.com/engine/reference/builder/#/arg
 ARG AEGIR_UID=12345
-ENV AEGIR_UID ${AEGIR_UID:-12345}
+#ENV AEGIR_UID ${AEGIR_UID:-12345}
 
 ARG AEGIR_GID=12345
-ENV AEGIR_GID ${AEGIR_GID:-12345}
+#ENV AEGIR_GID ${AEGIR_GID:-12345}
 
 RUN echo "Creating user aegir with UID $AEGIR_UID and GID $AEGIR_GID"
 
@@ -61,6 +61,16 @@ RUN chmod +x /usr/local/bin/docker-entrypoint-queue.sh
 RUN mkdir /var/log/aegir
 RUN chown aegir:aegir /var/log/aegir
 RUN echo 'Hello, Aegir.' > /var/log/aegir/system.log
+
+# Install the docker client into the container.
+RUN wget -q https://get.docker.com/builds/Linux/x86_64/docker-1.9.1 && \
+    cp docker-1.9.1 /usr/bin/docker && \
+    chmod +x /usr/bin/docker
+
+# Add the docker group and add aegir to it.
+ARG DOCKER_GID=1001
+RUN addgroup --gid $DOCKER_GID docker
+RUN adduser aegir docker
 
 USER aegir
 
