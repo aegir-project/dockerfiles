@@ -68,7 +68,8 @@ RUN wget -q https://get.docker.com/builds/Linux/x86_64/docker-1.9.1 && \
     chmod +x /usr/bin/docker
 
 # Add the docker group and add aegir to it.
-RUN groupadd docker
+ARG DOCKER_GID=1001
+RUN addgroup --gid $DOCKER_GID docker
 RUN adduser aegir docker
 
 USER aegir
