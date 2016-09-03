@@ -21,10 +21,10 @@ RUN apt-get update -qq && apt-get install -y -qq\
 # There are both ARG and ENV lines to make sure the value persists.
 # See https://docs.docker.com/engine/reference/builder/#/arg
 ARG AEGIR_UID=12345
-ENV AEGIR_UID ${AEGIR_UID:-12345}
+#ENV AEGIR_UID ${AEGIR_UID:-12345}
 
 ARG AEGIR_GID=12345
-ENV AEGIR_GID ${AEGIR_GID:-12345}
+#ENV AEGIR_GID ${AEGIR_GID:-12345}
 
 RUN echo "Creating user aegir with UID $AEGIR_UID and GID $AEGIR_GID"
 
