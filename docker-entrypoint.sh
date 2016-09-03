@@ -37,10 +37,10 @@ echo "Client Name: $AEGIR_CLIENT_NAME"
 echo "Client Email: $AEGIR_CLIENT_EMAIL"
 
 echo "-------------------------"
-echo "Running: drush hostmaster-install"
-
+echo "Running: drush cc drush"
 drush cc drush
 
+echo "Running: drush hostmaster-install"
 drush hostmaster-install -y --strict=0 $HOSTNAME \
   --aegir_db_host=$AEGIR_DATABASE_SERVER \
   --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
