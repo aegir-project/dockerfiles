@@ -51,6 +51,10 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 COPY run-tests.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/run-tests.sh
 
+# Put an apache foreground script in place
+COPY httpd-foreground /usr/local/bin/httpd-foreground
+RUN chmod +x /usr/local/bin/httpd-foreground
+
 #COPY docker-entrypoint-tests.sh /usr/local/bin/
 #RUN chmod +x /usr/local/bin/docker-entrypoint-tests.sh
 
