@@ -2,19 +2,6 @@
 
 HOSTNAME=`hostname --fqdn`
 
-# Install provision
-# /source is made available when running tests.
-if [ -f /source/provision/provision.drush.inc ]; then
-  echo "Installing provision from /source/provision..."
-  mkdir -p /var/aegir/.drush/commands
-  cp -rf /source/provision /var/aegir/.drush/commands/provision
-elif [ -d '/var/aegir/.drush/commands/provision' ] || [ -d '/var/aegir/.drush/provision' ]; then
-  echo "Provision already installed."
-else
-  echo "Installing provision $PROVISION_VERSION with drush..."
-  drush dl provision-$PROVISION_VERSION --destination=/var/aegir/.drush/commands -y
-fi
-
 # Returns true once mysql can connect.
 # Thanks to http://askubuntu.com/questions/697798/shell-script-how-to-run-script-after-mysql-is-ready
 mysql_ready() {
