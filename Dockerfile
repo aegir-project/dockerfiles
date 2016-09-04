@@ -62,7 +62,17 @@ RUN mkdir /var/log/aegir
 RUN chown aegir:aegir /var/log/aegir
 RUN echo 'Hello, Aegir.' > /var/log/aegir/system.log
 
+# Install Provision for all.
+ENV PROVISION_VERSION 7.x-3.x
+RUN mkdir -p /usr/share/drush/commands
+RUN drush dl --destination=/usr/share/drush/commands provision-$PROVISION_VERSION -y
+
+RUN drush dl --destination=/usr/share/drush/commands registry_rebuild-7.x -y
+
 USER aegir
+
+RUN mkdir /var/aegir/config
+RUN mkdir /var/aegir/.drush
 
 # You may change this environment at run time. User UID 1 is created with this email address.
 ENV AEGIR_CLIENT_EMAIL aegir@aegir.docker
@@ -81,19 +91,8 @@ ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir.make
 # For Releases:
 # ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir-release.make?h=$AEGIR_VERSION
 
-VOLUME /var/aegir
-
-# This isn't working, I think because /var/aegir is set as a volume.
-# I've moved it bak to the docker-entrypoint.sh which allows us to dynamially set the version as an environment variable.
-# Since we have to wait for the MySQL container to initiate also, this does not result in any further delay.
-
-# Install Provision
-#RUN mkdir -p /var/aegir/.drush/commands
-#RUN drush dl --destination=/var/aegir/.drush/commands provision-$PROVISION_VERSION -y
-#RUN drush cc drush
-
-# Prepare hostmaster platform.
-# RUN drush make $AEGIR_MAKEFILE /var/aegir/$AEGIR_PROFILE-$AEGIR_VERSION
+VOLUME /var/aegir/config
+VOLUME /var/aegir/.drush
 
 # docker-entrypoint.sh waits for mysql and runs hostmaster install
 ENTRYPOINT ["docker-entrypoint.sh"]
