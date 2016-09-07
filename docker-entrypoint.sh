@@ -39,6 +39,7 @@ echo "ÆGIR | Database active! Commencing Hostmaster Install..."
 echo "ÆGIR | -------------------------"
 echo "ÆGIR | Running: drush cc drush "
 drush cc drush
+
 echo "ÆGIR | -------------------------"
 echo "ÆGIR | Running: drush hostmaster-install"
 drush hostmaster-install -y --strict=0 $HOSTNAME \
@@ -73,6 +74,9 @@ drush @hostmaster en hosting_queued -y
 echo "ÆGIR | -------------------------"
 echo "ÆGIR | Hostmaster Log In Link:  "
 drush @hostmaster uli
+
+echo "ÆGIR | Running: drush cc drush "
+drush cc drush
 
 # Run whatever is the Docker CMD.
 echo "ÆGIR | -------------------------"
