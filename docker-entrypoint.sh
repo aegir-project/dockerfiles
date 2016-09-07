@@ -2,12 +2,26 @@
 
 HOSTNAME=`hostname --fqdn`
 
-echo 'ÆGIR | Hello! While we wait for a database...'
+echo 'ÆGIR | Hello! '
+echo 'ÆGIR | When the database is ready, we will install Aegir with the following options:'
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | Hostname: $HOSTNAME"
+echo "ÆGIR | Database Host: $AEGIR_DATABASE_SERVER"
+echo "ÆGIR | Makefile: $AEGIR_MAKEFILE"
+echo "ÆGIR | Profile: $AEGIR_PROFILE"
+echo "ÆGIR | Version: $AEGIR_VERSION"
+echo "ÆGIR | Client Name: $AEGIR_CLIENT_NAME"
+echo "ÆGIR | Client Email: $AEGIR_CLIENT_EMAIL"
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | TIP: To receive an email when the container is ready, add the AEGIR_CLIENT_EMAIL environment variable to your docker-compose.yml file."
+echo "ÆGIR | -------------------------"
 echo 'ÆGIR | Checking /var/aegir...'
 ls -lah /var/aegir
-
+echo "ÆGIR | -------------------------"
 echo 'ÆGIR | Checking /var/aegir/.drush/...'
 ls -lah /var/aegir
+echo "ÆGIR | -------------------------"
+
 
 # Returns true once mysql can connect.
 # Thanks to http://askubuntu.com/questions/697798/shell-script-how-to-run-script-after-mysql-is-ready
@@ -18,18 +32,10 @@ mysql_ready() {
 while !(mysql_ready)
 do
    sleep 3
-   echo "ÆGIR | Waiting for database $AEGIR_DATABASE_SERVER ..."
+   echo "ÆGIR | Waiting for database host '$AEGIR_DATABASE_SERVER' ..."
 done
 
 echo "ÆGIR | Database active! Commencing Hostmaster Install..."
-echo "ÆGIR | -------------------------"
-echo "ÆGIR | Hostname: $HOSTNAME"
-echo "ÆGIR | Database Host: $AEGIR_DATABASE_SERVER"
-echo "ÆGIR | Makefile: $AEGIR_MAKEFILE"
-echo "ÆGIR | Profile: $AEGIR_PROFILE"
-echo "ÆGIR | Version: $AEGIR_VERSION"
-echo "ÆGIR | Client Name: $AEGIR_CLIENT_NAME"
-echo "ÆGIR | Client Email: $AEGIR_CLIENT_EMAIL"
 echo "ÆGIR | -------------------------"
 echo "ÆGIR | Running: drush cc drush "
 drush cc drush
