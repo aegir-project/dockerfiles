@@ -2,6 +2,13 @@
 
 HOSTNAME=`hostname --fqdn`
 
+echo 'ÆGIR | Hello! While we wait for a database...'
+echo 'ÆGIR | Checking /var/aegir...'
+ls -lah /var/aegir
+
+echo 'ÆGIR | Checking /var/aegir/.drush/...'
+ls -lah /var/aegir
+
 # Returns true once mysql can connect.
 # Thanks to http://askubuntu.com/questions/697798/shell-script-how-to-run-script-after-mysql-is-ready
 mysql_ready() {
@@ -11,23 +18,23 @@ mysql_ready() {
 while !(mysql_ready)
 do
    sleep 3
-   echo "waiting for mysql ..."
+   echo "ÆGIR | Waiting for database $AEGIR_DATABASE_SERVER ..."
 done
 
-echo "========================="
-echo "Hostname: $HOSTNAME"
-echo "Database Host: $AEGIR_DATABASE_SERVER"
-echo "Makefile: $AEGIR_MAKEFILE"
-echo "Profile: $AEGIR_PROFILE"
-echo "Version: $AEGIR_VERSION"
-echo "Client Name: $AEGIR_CLIENT_NAME"
-echo "Client Email: $AEGIR_CLIENT_EMAIL"
-
-echo "-------------------------"
-echo "Running: drush hostmaster-install"
-
+echo "ÆGIR | Database active! Commencing Hostmaster Install..."
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | Hostname: $HOSTNAME"
+echo "ÆGIR | Database Host: $AEGIR_DATABASE_SERVER"
+echo "ÆGIR | Makefile: $AEGIR_MAKEFILE"
+echo "ÆGIR | Profile: $AEGIR_PROFILE"
+echo "ÆGIR | Version: $AEGIR_VERSION"
+echo "ÆGIR | Client Name: $AEGIR_CLIENT_NAME"
+echo "ÆGIR | Client Email: $AEGIR_CLIENT_EMAIL"
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | Running: drush cc drush "
 drush cc drush
-
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | Running: drush hostmaster-install"
 drush hostmaster-install -y --strict=0 $HOSTNAME \
   --aegir_db_host=$AEGIR_DATABASE_SERVER \
   --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
@@ -53,13 +60,15 @@ drush hostmaster-install -y --strict=0 $HOSTNAME \
 # Exit on the first failed line.
 set -e
 
-# Output a login link. If hostmaster is already installed, `drush hostmaster-install` doesn't give us a link.
-drush @hostmaster uli
-
-# Run the hosting queue
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | Enabling Hosting Task Queue..."
 drush @hostmaster en hosting_queued -y
 
-drush cc drush
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | Hostmaster Log In Link:  "
+drush @hostmaster uli
 
 # Run whatever is the Docker CMD.
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | Running $@ ..."
 `$@`
