@@ -9,7 +9,7 @@ echo "ÆGIR | Hostname: $HOSTNAME"
 echo "ÆGIR | Database Host: $AEGIR_DATABASE_SERVER"
 echo "ÆGIR | Makefile: $AEGIR_MAKEFILE"
 echo "ÆGIR | Profile: $AEGIR_PROFILE"
-echo "ÆGIR | Version: $AEGIR_VERSION"
+echo "ÆGIR | Root: $AEGIR_HOSTMASTER_ROOT"
 echo "ÆGIR | Client Name: $AEGIR_CLIENT_NAME"
 echo "ÆGIR | Client Email: $AEGIR_CLIENT_EMAIL"
 echo "ÆGIR | -------------------------"
@@ -35,50 +35,48 @@ do
    echo "ÆGIR | Waiting for database host '$AEGIR_DATABASE_SERVER' ..."
 done
 
-echo "ÆGIR | Database active! Commencing Hostmaster Install..."
-echo "ÆGIR | -------------------------"
-echo "ÆGIR | Running: drush cc drush "
-drush cc drush
+echo "ÆGIR | Database active! Checking for Hostmaster Install..."
 
-echo "ÆGIR | -------------------------"
-echo "ÆGIR | Running: drush hostmaster-install"
-drush hostmaster-install -y --strict=0 $HOSTNAME \
-  --aegir_db_host=$AEGIR_DATABASE_SERVER \
-  --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
-  --aegir_db_port=3306 \
-  --aegir_db_user=root \
-  --aegir_host=$HOSTNAME \
-  --client_name=$AEGIR_CLIENT_NAME \
-  --client_email=$AEGIR_CLIENT_EMAIL \
-  --makefile=$AEGIR_MAKEFILE \
-  --profile=$AEGIR_PROFILE \
-  --version=$AEGIR_VERSION
+# Check if @hostmaster is already set and accessible.
+drush @hostmaster vget site_name > /dev/null 2>&1
+if [ ${PIPESTATUS[0]} == 0 ]; then
+  echo "ÆGIR | Hostmaster found! Running 'drush @hostmaster updb -y'"
+  drush @hostmaster updb -y
+  echo "ÆGIR | Running 'drush @hostmaster provision-verify'"
+  drush @hostmaster provision-verify
+  echo "ÆGIR | Running: drush cc drush "
+  drush cc drush
+# if @hostmaster is not accessible, install it.
+else
+  echo "ÆGIR | Hostmaster not found. Continuing with install!"
+  echo "ÆGIR | Running: drush cc drush "
+  drush cc drush
+  echo "ÆGIR | Running: drush hostmaster-install"
+  drush hostmaster-install -y --strict=0 $HOSTNAME \
+    --aegir_db_host=$AEGIR_DATABASE_SERVER \
+    --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
+    --aegir_db_port=3306 \
+    --aegir_db_user=root \
+    --aegir_host=$HOSTNAME \
+    --client_name=$AEGIR_CLIENT_NAME \
+    --client_email=$AEGIR_CLIENT_EMAIL \
+    --makefile=$AEGIR_MAKEFILE \
+    --profile=$AEGIR_PROFILE \
+    --root=$AEGIR_HOSTMASTER_ROOT
 
-  # The option "version" in this command simply defines the folder that the
-  # platform is placed in.
-  #
-  #   /var/aegir/$AEGIR_PROFILE-$AEGIR_VERSION becomes
-  #   /var/aegir/hostmaster-7.x-3.x
-  #
-  # Since we are using docker volumes, and we don't yet have a
-  # strategy for using hostmaster-migrate for upgrades, we are hard coding the
-  # AEGIR_VERSION to 'docker' to simplify the upgrade process.
+  echo "ÆGIR | Running 'drush @hostmaster en hosting_queued -y'"
+  drush @hostmaster en hosting_queued -y
+fi
 
 # Exit on the first failed line.
 set -e
 
-echo "ÆGIR | -------------------------"
-echo "ÆGIR | Enabling Hosting Task Queue..."
-drush @hostmaster en hosting_queued -y
-
-echo "ÆGIR | -------------------------"
 echo "ÆGIR | Hostmaster Log In Link:  "
 drush @hostmaster uli
 
-echo "ÆGIR | Running: drush cc drush "
+echo "ÆGIR | Running 'drush cc drush' ... "
 drush cc drush
 
-# Run whatever is the Docker CMD.
-echo "ÆGIR | -------------------------"
-echo "ÆGIR | Running $@ ..."
+# Run whatever is the Docker CMD, typically drush @hostmaster hosting-queued
+echo "ÆGIR | Running '$@' ..."
 `$@`
