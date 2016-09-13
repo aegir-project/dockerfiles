@@ -19,7 +19,7 @@ echo 'ÆGIR | Checking /var/aegir...'
 ls -lah /var/aegir
 echo "ÆGIR | -------------------------"
 echo 'ÆGIR | Checking /var/aegir/.drush/...'
-ls -lah /var/aegir
+ls -lah /var/aegir/.drush
 echo "ÆGIR | -------------------------"
 
 
