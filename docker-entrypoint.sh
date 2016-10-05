@@ -9,7 +9,7 @@ echo "ÆGIR | Hostname: $HOSTNAME"
 echo "ÆGIR | Database Host: $AEGIR_DATABASE_SERVER"
 echo "ÆGIR | Makefile: $AEGIR_MAKEFILE"
 echo "ÆGIR | Profile: $AEGIR_PROFILE"
-echo "ÆGIR | Version: $AEGIR_VERSION"
+echo "ÆGIR | Root: $AEGIR_HOSTMASTER_ROOT"
 echo "ÆGIR | Client Name: $AEGIR_CLIENT_NAME"
 echo "ÆGIR | Client Email: $AEGIR_CLIENT_EMAIL"
 echo "ÆGIR | -------------------------"
@@ -52,17 +52,7 @@ drush hostmaster-install -y --strict=0 $HOSTNAME \
   --client_email=$AEGIR_CLIENT_EMAIL \
   --makefile=$AEGIR_MAKEFILE \
   --profile=$AEGIR_PROFILE \
-  --version=$AEGIR_VERSION
-
-  # The option "version" in this command simply defines the folder that the
-  # platform is placed in.
-  #
-  #   /var/aegir/$AEGIR_PROFILE-$AEGIR_VERSION becomes
-  #   /var/aegir/hostmaster-7.x-3.x
-  #
-  # Since we are using docker volumes, and we don't yet have a
-  # strategy for using hostmaster-migrate for upgrades, we are hard coding the
-  # AEGIR_VERSION to 'docker' to simplify the upgrade process.
+  --root=$AEGIR_HOSTMASTER_ROOT
 
 # Exit on the first failed line.
 set -e
