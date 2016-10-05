@@ -77,6 +77,10 @@ The install profile to run for the drupal front-end. Defaults to hostmaster.
 
 May use "devmaster" if you used the devmaster makefile.
 
+## AEGIR_HOSTMASTER_ROOT
+*Default: /var/aegir/hostmaster*
+
+The path to install hostmaster.
 
 # DEVELOPMENT
 
