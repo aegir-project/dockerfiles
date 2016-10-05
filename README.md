@@ -43,7 +43,11 @@ How to use this image
           MYSQL_ROOT_PASSWORD: strongpassword
     ```
   2. run `docker-compose up`.
-  
+
+## Development Environment
+
+We have created a development toolkit located at (https://github.com/aegir-project/development)[https://github.com/aegir-project/development]. The scripts in this folder will prepare your host machine with the source code and containers needed to run and develop Aegir.
+
 ## Important parts:
 
   - MYSQL_ROOT_PASSWORD: 12345.  This must match for database and hostmaster containers.  If launching in production, choose a secure password.
