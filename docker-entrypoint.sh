@@ -54,16 +54,6 @@ drush hostmaster-install -y --strict=0 $HOSTNAME \
   --profile=$AEGIR_PROFILE \
   --root=$AEGIR_HOSTMASTER_ROOT
 
-  # The option "version" in this command simply defines the folder that the
-  # platform is placed in.
-  #
-  #   /var/aegir/$AEGIR_PROFILE-$AEGIR_VERSION becomes
-  #   /var/aegir/hostmaster-7.x-3.x
-  #
-  # Since we are using docker volumes, and we don't yet have a
-  # strategy for using hostmaster-migrate for upgrades, we are hard coding the
-  # AEGIR_VERSION to 'docker' to simplify the upgrade process.
-
 # Exit on the first failed line.
 set -e
 
