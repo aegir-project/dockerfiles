@@ -10,7 +10,7 @@ branches:
 env:
   globaL:
     - COMPOSE_HTTP_TIMEOUT=3600
-    - AEGIR_TESTS_VERSION=refactor-entrypoint
+    - AEGIR_TESTS_VERSION=master
 
 #env:
 #  - test: Ubuntu 14.04 Apache
