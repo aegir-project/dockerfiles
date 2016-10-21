@@ -96,4 +96,4 @@ VOLUME /var/aegir
 
 # docker-entrypoint.sh waits for mysql and runs hostmaster install
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["drush @hostmaster hosting-queued"]
+CMD ["drush @hostmaster hosting-queued -v"]
