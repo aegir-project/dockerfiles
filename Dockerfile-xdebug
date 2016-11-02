@@ -1,0 +1,13 @@
+FROM aegir/hostmaster
+
+USER root
+
+RUN apt-get update && \
+  apt-get install php5-dev -y -qq
+
+RUN yes | pecl install xdebug \
+        && echo "zend_extension=xdebug.so" \
+        && echo "xdebug.remote_enable=on" >> /etc/php5/apache2/conf.d/00-xdebug.ini \
+        && echo "xdebug.remote_autostart=off" >> /etc/php5/apache2/conf.d/00-xdebug.ini
+
+USER aegir
