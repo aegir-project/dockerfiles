@@ -19,7 +19,7 @@ echo 'ÆGIR | Checking /var/aegir...'
 ls -lah /var/aegir
 echo "ÆGIR | -------------------------"
 echo 'ÆGIR | Checking /var/aegir/.drush/...'
-ls -lah /var/aegir
+ls -lah /var/aegir/.drush
 echo "ÆGIR | -------------------------"
 
 
@@ -51,6 +51,7 @@ else
   echo "ÆGIR | Hostmaster not found. Continuing with install!"
   echo "ÆGIR | Running: drush cc drush "
   drush cc drush
+  echo "ÆGIR | -------------------------"
   echo "ÆGIR | Running: drush hostmaster-install"
   drush hostmaster-install -y --strict=0 $HOSTNAME \
     --aegir_db_host=$AEGIR_DATABASE_SERVER \

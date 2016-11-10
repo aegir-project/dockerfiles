@@ -20,8 +20,8 @@ RUN apt-get update -qq && apt-get install -y -qq\
 # If wish to "mount" a volume to your host, set AEGIR_UID and AEGIR_GIT to your local user's UID.
 # There are both ARG and ENV lines to make sure the value persists.
 # See https://docs.docker.com/engine/reference/builder/#/arg
-ARG AEGIR_UID=12345
-ENV AEGIR_UID ${AEGIR_UID:-12345}
+ARG AEGIR_UID=1000
+ENV AEGIR_UID ${AEGIR_UID:-1000}
 
 RUN echo "Creating user aegir with UID $AEGIR_UID and GID $AEGIR_GID"
 
