@@ -2,6 +2,7 @@ FROM ubuntu:14.04
 
 RUN apt-get update -qq && apt-get install -y -qq\
   apache2 \
+  openssl \
   php5 \
   php5-cli \
   php5-gd \
