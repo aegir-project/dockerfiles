@@ -4,7 +4,9 @@
 
 set -e
 
-# Apache gets grumpy about PID files pre-existing
-rm -f /usr/local/apache2/logs/httpd.pid
+env
 
-exec httpd -DFOREGROUND
+# Apache gets grumpy about PID files pre-existing
+rm -f /usr/local/apache2/logs/apache2.pid
+
+exec apache2 -DFOREGROUND
