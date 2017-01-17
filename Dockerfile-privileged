@@ -1,5 +1,5 @@
 FROM aegir/hostmaster
-
+USER root
 RUN wget -q https://get.docker.com/builds/Linux/x86_64/docker-1.9.1 && \
     cp docker-1.9.1 /usr/bin/docker && \
     chmod +x /usr/bin/docker
