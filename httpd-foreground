@@ -5,6 +5,6 @@
 set -e
 
 # Apache gets grumpy about PID files pre-existing
-rm -f /usr/local/apache2/logs/httpd.pid
+rm -f /usr/local/apache2/logs/apache2.pid
 
-exec httpd -DFOREGROUND
+exec apache2 -DFOREGROUND
