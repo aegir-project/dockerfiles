@@ -2,29 +2,37 @@
 
 HOSTNAME=`hostname --fqdn`
 
-# Install provision
-# /source is made available when running tests.
-if [ -f /source/provision/provision.drush.inc ]; then
-  echo "Installing provision from /source/provision..."
-  mkdir -p /var/aegir/.drush/commands
-  cp -rf /source/provision /var/aegir/.drush/commands/provision
-elif [ -d '/var/aegir/.drush/commands/provision' ] || [ -d '/var/aegir/.drush/provision' ]; then
-  echo "Provision already installed."
-else
-  echo "Installing provision $PROVISION_VERSION with drush..."
-  drush dl provision-$PROVISION_VERSION --destination=/var/aegir/.drush/commands -y
-fi
+echo 'ÆGIR | Hello! '
+echo 'ÆGIR | When the database is ready, we will install Aegir with the following options:'
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | Hostname: $HOSTNAME"
+echo "ÆGIR | Database Host: $AEGIR_DATABASE_SERVER"
+echo "ÆGIR | Makefile: $AEGIR_MAKEFILE"
+echo "ÆGIR | Profile: $AEGIR_PROFILE"
+echo "ÆGIR | Root: $AEGIR_HOSTMASTER_ROOT"
+echo "ÆGIR | Client Name: $AEGIR_CLIENT_NAME"
+echo "ÆGIR | Client Email: $AEGIR_CLIENT_EMAIL"
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | TIP: To receive an email when the container is ready, add the AEGIR_CLIENT_EMAIL environment variable to your docker-compose.yml file."
+echo "ÆGIR | -------------------------"
+echo 'ÆGIR | Checking /var/aegir...'
+ls -lah /var/aegir
+echo "ÆGIR | -------------------------"
+echo 'ÆGIR | Checking /var/aegir/.drush/...'
+ls -lah /var/aegir/.drush
+echo "ÆGIR | -------------------------"
+
 
 # Returns true once mysql can connect.
 # Thanks to http://askubuntu.com/questions/697798/shell-script-how-to-run-script-after-mysql-is-ready
 mysql_ready() {
-    mysqladmin ping --host=database --user=root --password=$MYSQL_ROOT_PASSWORD > /dev/null 2>&1
+    mysqladmin ping --host=$AEGIR_DATABASE_SERVER --user=root --password=$MYSQL_ROOT_PASSWORD > /dev/null 2>&1
 }
 
 while !(mysql_ready)
 do
    sleep 3
-   echo "waiting for mysql ..."
+   echo "ÆGIR | Waiting for database host '$AEGIR_DATABASE_SERVER' ..."
 done
 
 echo "========================="
@@ -51,28 +59,23 @@ drush hostmaster-install -y --strict=0 $HOSTNAME \
   --client_email=$AEGIR_CLIENT_EMAIL \
   --makefile=$AEGIR_MAKEFILE \
   --profile=$AEGIR_PROFILE \
-  --version=$AEGIR_VERSION
-
-  # The option "version" in this command simply defines the folder that the
-  # platform is placed in.
-  #
-  #   /var/aegir/$AEGIR_PROFILE-$AEGIR_VERSION becomes
-  #   /var/aegir/hostmaster-7.x-3.x
-  #
-  # Since we are using docker volumes, and we don't yet have a
-  # strategy for using hostmaster-migrate for upgrades, we are hard coding the
-  # AEGIR_VERSION to 'docker' to simplify the upgrade process.
+  --root=$AEGIR_HOSTMASTER_ROOT
 
 # Exit on the first failed line.
 set -e
 
-# Output a login link. If hostmaster is already installed, `drush hostmaster-install` doesn't give us a link.
-drush @hostmaster uli
-
-# Run the hosting queue
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | Enabling Hosting Task Queue..."
 drush @hostmaster en hosting_queued -y
 
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | Hostmaster Log In Link:  "
+drush @hostmaster uli
+
+echo "ÆGIR | Running: drush cc drush "
 drush cc drush
 
 # Run whatever is the Docker CMD.
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | Running $@ ..."
 `$@`
