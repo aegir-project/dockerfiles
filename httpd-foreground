@@ -3,8 +3,11 @@
 # Copied from official httpd container: https://github.com/docker-library/httpd/blob/fa5223d83a5225aa3fd5b23229b785c7764142bf/2.2/httpd-foreground
 
 set -e
+#
+## Apache gets grumpy about PID files pre-existing
+#rm -f /usr/local/apache2/logs/apache2.pid
+#source /etc/apache2/envvars
+#exec apache2 -DFOREGROUND
 
-# Apache gets grumpy about PID files pre-existing
-rm -f /usr/local/apache2/logs/apache2.pid
-
-exec apache2 -DFOREGROUND
+sudo /usr/sbin/apache2ctl start
+tail -f /var/log/aegir/system.log
