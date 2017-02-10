@@ -101,8 +101,7 @@ ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir.make
 # For Releases:
 # ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir-release.make?h=$AEGIR_VERSION
 
-VOLUME /var/aegir/config
-VOLUME /var/aegir/.drush
+VOLUME /var/aegir
 
 # docker-entrypoint.sh waits for mysql and runs hostmaster install
 ENTRYPOINT ["docker-entrypoint.sh"]
