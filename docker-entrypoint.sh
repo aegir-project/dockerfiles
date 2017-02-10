@@ -35,13 +35,20 @@ do
    echo "ÆGIR | Waiting for database host '$AEGIR_DATABASE_SERVER' ..."
 done
 
-echo "ÆGIR | Database active! Commencing Hostmaster Install..."
-echo "ÆGIR | -------------------------"
-echo "ÆGIR | Running: drush cc drush "
+echo "========================="
+echo "Hostname: $HOSTNAME"
+echo "Database Host: $AEGIR_DATABASE_SERVER"
+echo "Makefile: $AEGIR_MAKEFILE"
+echo "Profile: $AEGIR_PROFILE"
+echo "Version: $AEGIR_VERSION"
+echo "Client Name: $AEGIR_CLIENT_NAME"
+echo "Client Email: $AEGIR_CLIENT_EMAIL"
+
+echo "-------------------------"
+echo "Running: drush cc drush"
 drush cc drush
 
-echo "ÆGIR | -------------------------"
-echo "ÆGIR | Running: drush hostmaster-install"
+echo "Running: drush hostmaster-install"
 drush hostmaster-install -y --strict=0 $HOSTNAME \
   --aegir_db_host=$AEGIR_DATABASE_SERVER \
   --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
