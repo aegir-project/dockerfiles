@@ -30,9 +30,11 @@ RUN adduser --uid $AEGIR_UID --gid $AEGIR_UID --system --home /var/aegir aegir
 RUN adduser aegir www-data
 RUN a2enmod rewrite
 
-# Instead of symlink, we will map volume for the config.
-# RUN ln -s /var/aegir/config/docker.conf /etc/apache2/conf-available/aegir.conf
-#RUN ln -s /etc/apache2/conf-available/aegir.conf /etc/apache2/conf-enabled/aegir.conf
+# Save a symlink to the /var/aegir/config/docker.conf file.
+RUN mkdir -p /var/aegir/config
+RUN chown aegir:aegir /var/aegir/config -R
+RUN ln -sf /var/aegir/config/docker.conf /etc/apache2/conf-available/aegir.conf
+RUN ln -sf /etc/apache2/conf-available/aegir.conf /etc/apache2/conf-enabled/aegir.conf
 
 COPY sudoers-aegir /etc/sudoers.d/aegir
 RUN chmod 0440 /etc/sudoers.d/aegir

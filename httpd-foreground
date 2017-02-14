@@ -9,5 +9,13 @@ set -e
 #source /etc/apache2/envvars
 #exec apache2 -DFOREGROUND
 
+# Add symlink from our server's config to the apache include target.
+echo "/var/aegir/config:"
+ls -la /var/aegir/config/
+
+echo "/var/aegir/config/server_$AEGIR_SERVER_NAME:"
+ls -la /var/aegir/config/server_$AEGIR_SERVER_NAME
+ln -sf /var/aegir/config/server_$AEGIR_SERVER_NAME/docker.conf /var/aegir/config/docker.conf
+
 sudo /usr/sbin/apache2ctl start
 tail -f /var/log/aegir/system.log
