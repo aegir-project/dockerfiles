@@ -20,3 +20,4 @@ ARG DOCKER_GID=1001
 RUN addgroup --gid $DOCKER_GID docker
 RUN adduser aegir docker
 
+USER aegir
