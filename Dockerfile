@@ -59,16 +59,6 @@ RUN mkdir /var/log/aegir
 RUN chown aegir:aegir /var/log/aegir
 RUN echo 'Hello, Aegir.' > /var/log/aegir/system.log
 
-# Install the docker client into the container.
-RUN wget -q https://get.docker.com/builds/Linux/x86_64/docker-1.9.1 && \
-    cp docker-1.9.1 /usr/bin/docker && \
-    chmod +x /usr/bin/docker
-
-# Add the docker group and add aegir to it.
-ARG DOCKER_GID=1001
-RUN addgroup --gid $DOCKER_GID docker
-RUN adduser aegir docker
-
 # Install Provision for all.
 ENV PROVISION_VERSION 7.x-3.x
 RUN mkdir -p /usr/share/drush/commands
