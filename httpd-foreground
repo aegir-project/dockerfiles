@@ -15,6 +15,12 @@ ls -la /var/aegir/config/
 
 echo "/var/aegir/config/server_$AEGIR_SERVER_NAME:"
 ls -la /var/aegir/config/server_$AEGIR_SERVER_NAME
+
+# If there are no platforms assigned to the server, docker.conf and the docker config folders are never created.
+if [ ! -f '/var/aegir/config/server_$AEGIR_SERVER_NAME/docker.conf' ]; then
+  touch /var/aegir/config/server_$AEGIR_SERVER_NAME/docker.conf
+fi
+
 ln -sf /var/aegir/config/server_$AEGIR_SERVER_NAME/docker.conf /var/aegir/config/docker.conf
 
 sudo /usr/sbin/apache2ctl start
