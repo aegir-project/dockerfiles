@@ -76,11 +76,11 @@ drush hostmaster-install -y --strict=0 $HOSTNAME \
 # Exit on the first failed line.
 set -e
 
-echo "ÆGIR | Hostmaster Log In Link:  "
-drush @hostmaster uli
-
 echo "ÆGIR | Running 'drush cc drush' ... "
 drush cc drush
+
+echo "ÆGIR | Enabling hosting queued..."
+drush @hostmaster en hosting_queued -y
 
 # Run whatever is the Docker CMD, typically drush @hostmaster hosting-queued
 echo "ÆGIR | Running '$@' ..."
