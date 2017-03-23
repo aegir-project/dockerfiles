@@ -59,10 +59,11 @@ RUN mkdir /var/log/aegir
 RUN chown aegir:aegir /var/log/aegir
 RUN echo 'Hello, Aegir.' > /var/log/aegir/system.log
 
-# Install Provision for all.
-ENV PROVISION_VERSION 7.x-3.x
-RUN mkdir -p /usr/share/drush/commands
-RUN drush dl --destination=/usr/share/drush/commands provision-$PROVISION_VERSION -y
+# Don't install provision. Downstream tags will do this with the right version.
+## Install Provision for all.
+#ENV PROVISION_VERSION 7.x-3.x
+#RUN mkdir -p /usr/share/drush/commands
+#RUN drush dl --destination=/usr/share/drush/commands provision-$PROVISION_VERSION -y
 
 RUN drush dl --destination=/usr/share/drush/commands registry_rebuild-7.x -y
 
