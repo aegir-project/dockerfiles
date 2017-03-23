@@ -57,6 +57,7 @@ if [ ${PIPESTATUS[0]} == 0 ]; then
   if [ ! -d "$AEGIR_HOSTMASTER_ROOT/sites/$HOSTNAME" ]; then
       echo "ÆGIR | Site not found at $AEGIR_HOSTMASTER_ROOT/sites/$HOSTNAME, upgrading!"
       echo "ÆGIR | Running 'drush @hostmaster hostmaster-migrate $HOSTNAME $AEGIR_HOSTMASTER_ROOT -y'...!"
+      drush @hostmaster hostmaster-migrate $HOSTNAME $AEGIR_HOSTMASTER_ROOT -y
   else
       echo "ÆGIR | Site already found at $AEGIR_HOSTMASTER_ROOT/sites/$HOSTNAME"
   fi
@@ -94,6 +95,8 @@ drush cc drush
 
 echo "ÆGIR | Enabling hosting queued..."
 drush @hostmaster en hosting_queued -y
+
+ls -lah /var/aegir
 
 # Run whatever is the Docker CMD, typically drush @hostmaster hosting-queued
 echo "ÆGIR | Running '$@' ..."
