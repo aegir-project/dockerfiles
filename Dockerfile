@@ -64,8 +64,8 @@ RUN echo 'Hello, Aegir.' > /var/log/aegir/system.log
 #ENV PROVISION_VERSION 7.x-3.x
 #RUN mkdir -p /usr/share/drush/commands
 #RUN drush dl --destination=/usr/share/drush/commands provision-$PROVISION_VERSION -y
-
-RUN drush dl --destination=/usr/share/drush/commands registry_rebuild-7.x -y
+ENV REGISTRY_REBUILD_VERSION 7.x-2.5
+RUN drush dl --destination=/usr/share/drush/commands registry_rebuild-$REGISTRY_REBUILD_VERSION -y
 
 USER aegir
 
