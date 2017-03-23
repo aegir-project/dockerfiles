@@ -76,7 +76,7 @@ RUN mkdir /var/aegir/.drush
 ENV AEGIR_CLIENT_EMAIL aegir@aegir.docker
 ENV AEGIR_CLIENT_NAME admin
 ENV AEGIR_PROFILE hostmaster
-ENV PROVISION_VERSION 7.x-3.x
+ENV AEGIR_VERSION 7.x-3.x
 
 # Must be fixed across versions so we can upgrade containers.
 ENV AEGIR_HOSTMASTER_ROOT /var/aegir/hostmaster

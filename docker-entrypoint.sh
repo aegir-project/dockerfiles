@@ -6,6 +6,7 @@ echo 'ÆGIR | Hello! '
 echo 'ÆGIR | When the database is ready, we will install Aegir with the following options:'
 echo "ÆGIR | -------------------------"
 echo "ÆGIR | Hostname: $HOSTNAME"
+echo "ÆGIR | Version: $AEGIR_VERSION"
 echo "ÆGIR | Database Host: $AEGIR_DATABASE_SERVER"
 echo "ÆGIR | Makefile: $AEGIR_MAKEFILE"
 echo "ÆGIR | Profile: $AEGIR_PROFILE"
@@ -20,6 +21,10 @@ ls -lah /var/aegir
 echo "ÆGIR | -------------------------"
 echo 'ÆGIR | Checking /var/aegir/.drush/...'
 ls -lah /var/aegir/.drush
+echo "ÆGIR | -------------------------"
+
+echo "ÆGIR | Installing provision $AEGIR_VERSION ..."
+drush dl provision-$AEGIR_VERSION
 echo "ÆGIR | -------------------------"
 
 
