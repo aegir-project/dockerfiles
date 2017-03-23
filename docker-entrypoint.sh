@@ -49,25 +49,32 @@ if [ ${PIPESTATUS[0]} == 0 ]; then
 # if @hostmaster is not accessible, install it.
 else
   echo "ÆGIR | Hostmaster not found. Continuing with install!"
-  echo "ÆGIR | Running: drush cc drush "
-  drush cc drush
-  echo "ÆGIR | -------------------------"
-  echo "ÆGIR | Running: drush hostmaster-install"
-  drush hostmaster-install -y --strict=0 $HOSTNAME \
-    --aegir_db_host=$AEGIR_DATABASE_SERVER \
-    --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
-    --aegir_db_port=3306 \
-    --aegir_db_user=root \
-    --aegir_host=$HOSTNAME \
-    --client_name=$AEGIR_CLIENT_NAME \
-    --client_email=$AEGIR_CLIENT_EMAIL \
-    --makefile=$AEGIR_MAKEFILE \
-    --profile=$AEGIR_PROFILE \
-    --root=$AEGIR_HOSTMASTER_ROOT
-
-  echo "ÆGIR | Running 'drush @hostmaster en hosting_queued -y'"
-  drush @hostmaster en hosting_queued -y
 fi
+echo "========================="
+echo "Hostname: $HOSTNAME"
+echo "Database Host: $AEGIR_DATABASE_SERVER"
+echo "Makefile: $AEGIR_MAKEFILE"
+echo "Profile: $AEGIR_PROFILE"
+echo "Version: $AEGIR_VERSION"
+echo "Client Name: $AEGIR_CLIENT_NAME"
+echo "Client Email: $AEGIR_CLIENT_EMAIL"
+
+echo "-------------------------"
+echo "Running: drush cc drush"
+drush cc drush
+
+echo "Running: drush hostmaster-install"
+drush hostmaster-install -y --strict=0 $HOSTNAME \
+  --aegir_db_host=$AEGIR_DATABASE_SERVER \
+  --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
+  --aegir_db_port=3306 \
+  --aegir_db_user=root \
+  --aegir_host=$HOSTNAME \
+  --client_name=$AEGIR_CLIENT_NAME \
+  --client_email=$AEGIR_CLIENT_EMAIL \
+  --makefile=$AEGIR_MAKEFILE \
+  --profile=$AEGIR_PROFILE \
+  --root=$AEGIR_HOSTMASTER_ROOT
 
 # Exit on the first failed line.
 set -e

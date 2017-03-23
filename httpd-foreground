@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Copied from official httpd container: https://github.com/docker-library/httpd/blob/fa5223d83a5225aa3fd5b23229b785c7764142bf/2.2/httpd-foreground
+
+set -e
+#
+## Apache gets grumpy about PID files pre-existing
+#rm -f /usr/local/apache2/logs/apache2.pid
+#source /etc/apache2/envvars
+#exec apache2 -DFOREGROUND
+
+# Add symlink from our server's config to the apache include target.
+echo "/var/aegir/config:"
+ls -la /var/aegir/config/
+
+echo "/var/aegir/config/server_$AEGIR_SERVER_NAME:"
+ls -la /var/aegir/config/server_$AEGIR_SERVER_NAME
+
+# If there are no platforms assigned to the server, docker.conf and the docker config folders are never created.
+if [ ! -f '/var/aegir/config/server_$AEGIR_SERVER_NAME/docker.conf' ]; then
+  touch /var/aegir/config/server_$AEGIR_SERVER_NAME/docker.conf
+fi
+
+ln -sf /var/aegir/config/server_$AEGIR_SERVER_NAME/docker.conf /var/aegir/config/docker.conf
+
+sudo /usr/sbin/apache2ctl start
+tail -f /var/log/aegir/system.log
