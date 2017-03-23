@@ -23,8 +23,14 @@ echo 'ÆGIR | Checking /var/aegir/.drush/...'
 ls -lah /var/aegir/.drush
 echo "ÆGIR | -------------------------"
 
-echo "ÆGIR | Installing provision $AEGIR_VERSION ..."
-drush dl provision-$AEGIR_VERSION --destination=/var/aegir/.drush/commands -y
+
+if [ ! -d '/var/aegir/.drush/commands/provision' ]; then
+    echo "ÆGIR | Installing provision $AEGIR_VERSION ..."
+    drush dl provision-$AEGIR_VERSION --destination=/var/aegir/.drush/commands -y
+else
+    echo "ÆGIR | Provision found. Moving on."
+fi
+
 echo "ÆGIR | -------------------------"
 
 
