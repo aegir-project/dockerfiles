@@ -24,7 +24,7 @@ ls -lah /var/aegir/.drush
 echo "ÆGIR | -------------------------"
 
 echo "ÆGIR | Installing provision $AEGIR_VERSION ..."
-drush dl provision-$AEGIR_VERSION
+drush dl provision-$AEGIR_VERSION --destination=/var/aegir/.drush/commands -y
 echo "ÆGIR | -------------------------"
 
 
