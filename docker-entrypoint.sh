@@ -51,16 +51,23 @@ echo "ÆGIR | Database active! Checking for Hostmaster Install..."
 # Check if @hostmaster is already set and accessible.
 drush @hostmaster vget site_name > /dev/null 2>&1
 if [ ${PIPESTATUS[0]} == 0 ]; then
-  echo "ÆGIR | Hostmaster found! Running 'drush @hostmaster updb -y'"
-  drush @hostmaster updb -y
-  echo "ÆGIR | Running 'drush @hostmaster provision-verify'"
-  drush @hostmaster provision-verify
-  echo "ÆGIR | Running: drush cc drush "
-  drush cc drush
+  echo "ÆGIR | Hostmaster site found... Checking for upgrade platform..."
+
+  # Only upgrade if site not found in current containers platform.
+  if [ ! -d "$AEGIR_HOSTMASTER_ROOT/sites/$HOSTNAME" ]; then
+      echo "ÆGIR | Site not found at $AEGIR_HOSTMASTER_ROOT/sites/$HOSTNAME, upgrading!"
+      echo "ÆGIR | Running 'drush @hostmaster hostmaster-migrate $HOSTNAME $AEGIR_HOSTMASTER_ROOT -y'...!"
+  else
+      echo "ÆGIR | Site already found at $AEGIR_HOSTMASTER_ROOT/sites/$HOSTNAME"
+  fi
+
+
 # if @hostmaster is not accessible, install it.
 else
   echo "ÆGIR | Hostmaster not found. Continuing with install!"
 fi
+
+sleep 3
 
 echo "-------------------------"
 echo "Running: drush cc drush"
