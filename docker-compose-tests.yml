@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+
+  hostmaster:
+    image: aegir/hostmaster
+    command:
+      - run-tests.sh
+    ports:
+      - 80:80
+    hostname: aegir.local.computer
+    links:
+      - database
+    depends_on:
+      - database
+    environment:
+      VIRTUAL_HOST: aegir.local.computer
+      MYSQL_ROOT_PASSWORD: strongpassword
+    tty: true
+    stdin_open: true
+
+  database:
+    image: mariadb
+
+    # Disable logging for this container, for testing environment.
+    logging:
+      driver: "none"
+    environment:
+      MYSQL_ROOT_PASSWORD: strongpassword
+
+    # These options are needed for Drupal 7.50 and up for full UTF-8 support.
+    # See https://www.drupal.org/node/2754539
+    command: mysqld --innodb-large-prefix --innodb-file-format=barracuda --innodb-file-per-table
