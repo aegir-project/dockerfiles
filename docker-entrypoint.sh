@@ -50,14 +50,6 @@ if [ ${PIPESTATUS[0]} == 0 ]; then
 else
   echo "ÆGIR | Hostmaster not found. Continuing with install!"
 fi
-echo "========================="
-echo "Hostname: $HOSTNAME"
-echo "Database Host: $AEGIR_DATABASE_SERVER"
-echo "Makefile: $AEGIR_MAKEFILE"
-echo "Profile: $AEGIR_PROFILE"
-echo "Version: $AEGIR_VERSION"
-echo "Client Name: $AEGIR_CLIENT_NAME"
-echo "Client Email: $AEGIR_CLIENT_EMAIL"
 
 echo "-------------------------"
 echo "Running: drush cc drush"
