@@ -6,6 +6,7 @@ echo 'ÆGIR | Hello! '
 echo 'ÆGIR | When the database is ready, we will install Aegir with the following options:'
 echo "ÆGIR | -------------------------"
 echo "ÆGIR | Hostname: $HOSTNAME"
+echo "ÆGIR | Version: $AEGIR_VERSION"
 echo "ÆGIR | Database Host: $AEGIR_DATABASE_SERVER"
 echo "ÆGIR | Makefile: $AEGIR_MAKEFILE"
 echo "ÆGIR | Profile: $AEGIR_PROFILE"
@@ -23,6 +24,16 @@ ls -lah /var/aegir/.drush
 echo "ÆGIR | -------------------------"
 
 
+if [ ! -d '/var/aegir/.drush/commands/provision' ]; then
+    echo "ÆGIR | Installing provision $AEGIR_VERSION ..."
+    drush dl provision-$AEGIR_VERSION --destination=/var/aegir/.drush/commands -y
+else
+    echo "ÆGIR | Provision found. Moving on."
+fi
+
+echo "ÆGIR | -------------------------"
+
+
 # Returns true once mysql can connect.
 # Thanks to http://askubuntu.com/questions/697798/shell-script-how-to-run-script-after-mysql-is-ready
 mysql_ready() {
@@ -35,14 +46,29 @@ do
    echo "ÆGIR | Waiting for database host '$AEGIR_DATABASE_SERVER' ..."
 done
 
-echo "========================="
-echo "Hostname: $HOSTNAME"
-echo "Database Host: $AEGIR_DATABASE_SERVER"
-echo "Makefile: $AEGIR_MAKEFILE"
-echo "Profile: $AEGIR_PROFILE"
-echo "Version: $AEGIR_VERSION"
-echo "Client Name: $AEGIR_CLIENT_NAME"
-echo "Client Email: $AEGIR_CLIENT_EMAIL"
+echo "ÆGIR | Database active! Checking for Hostmaster Install..."
+
+# Check if @hostmaster is already set and accessible.
+drush @hostmaster vget site_name > /dev/null 2>&1
+if [ ${PIPESTATUS[0]} == 0 ]; then
+  echo "ÆGIR | Hostmaster site found... Checking for upgrade platform..."
+
+  # Only upgrade if site not found in current containers platform.
+  if [ ! -d "$AEGIR_HOSTMASTER_ROOT/sites/$HOSTNAME" ]; then
+      echo "ÆGIR | Site not found at $AEGIR_HOSTMASTER_ROOT/sites/$HOSTNAME, upgrading!"
+      echo "ÆGIR | Running 'drush @hostmaster hostmaster-migrate $HOSTNAME $AEGIR_HOSTMASTER_ROOT -y'...!"
+      drush @hostmaster hostmaster-migrate $HOSTNAME $AEGIR_HOSTMASTER_ROOT -y
+  else
+      echo "ÆGIR | Site already found at $AEGIR_HOSTMASTER_ROOT/sites/$HOSTNAME"
+  fi
+
+
+# if @hostmaster is not accessible, install it.
+else
+  echo "ÆGIR | Hostmaster not found. Continuing with install!"
+fi
+
+sleep 3
 
 echo "-------------------------"
 echo "Running: drush cc drush"
@@ -64,18 +90,18 @@ drush hostmaster-install -y --strict=0 $HOSTNAME \
 # Exit on the first failed line.
 set -e
 
-echo "ÆGIR | -------------------------"
-echo "ÆGIR | Enabling Hosting Task Queue..."
-drush @hostmaster en hosting_queued -y
-
-echo "ÆGIR | -------------------------"
-echo "ÆGIR | Hostmaster Log In Link:  "
-drush @hostmaster uli
-
-echo "ÆGIR | Running: drush cc drush "
+echo "ÆGIR | Running 'drush cc drush' ... "
 drush cc drush
 
-# Run whatever is the Docker CMD.
-echo "ÆGIR | -------------------------"
-echo "ÆGIR | Running $@ ..."
+echo "ÆGIR | Enabling hosting queued..."
+drush @hostmaster en hosting_queued -y
+
+ls -lah /var/aegir
+
+# We need a ULI here because aegir only outputs one on install, not on subsequent verify.
+echo "ÆGIR | Getting a new login link ... "
+drush @hostmaster uli
+
+# Run whatever is the Docker CMD, typically drush @hostmaster hosting-queued
+echo "ÆGIR | Running '$@' ..."
 `$@`

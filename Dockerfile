@@ -59,12 +59,13 @@ RUN mkdir /var/log/aegir
 RUN chown aegir:aegir /var/log/aegir
 RUN echo 'Hello, Aegir.' > /var/log/aegir/system.log
 
-# Install Provision for all.
-ENV PROVISION_VERSION 7.x-3.x
-RUN mkdir -p /usr/share/drush/commands
-RUN drush dl --destination=/usr/share/drush/commands provision-$PROVISION_VERSION -y
-
-RUN drush dl --destination=/usr/share/drush/commands registry_rebuild-7.x -y
+# Don't install provision. Downstream tags will do this with the right version.
+## Install Provision for all.
+#ENV PROVISION_VERSION 7.x-3.x
+#RUN mkdir -p /usr/share/drush/commands
+#RUN drush dl --destination=/usr/share/drush/commands provision-$PROVISION_VERSION -y
+ENV REGISTRY_REBUILD_VERSION 7.x-2.5
+RUN drush dl --destination=/usr/share/drush/commands registry_rebuild-$REGISTRY_REBUILD_VERSION -y
 
 USER aegir
 
@@ -75,9 +76,9 @@ RUN mkdir /var/aegir/.drush
 ENV AEGIR_CLIENT_EMAIL aegir@aegir.docker
 ENV AEGIR_CLIENT_NAME admin
 ENV AEGIR_PROFILE hostmaster
-ENV PROVISION_VERSION 7.x-3.x
+ENV AEGIR_VERSION 7.x-3.x
 
-# We do not want a dynamic path for hostmaster, as the upgrade process for Docker is to replace the container.
+# Must be fixed across versions so we can upgrade containers.
 ENV AEGIR_HOSTMASTER_ROOT /var/aegir/hostmaster
 
 WORKDIR /var/aegir
