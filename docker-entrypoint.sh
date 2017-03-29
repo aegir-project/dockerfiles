@@ -7,6 +7,7 @@ echo 'ÆGIR | When the database is ready, we will install Aegir with the followi
 echo "ÆGIR | -------------------------"
 echo "ÆGIR | Hostname: $HOSTNAME"
 echo "ÆGIR | Version: $AEGIR_VERSION"
+echo "ÆGIR | Provision Version: $PROVISION_VERSION"
 echo "ÆGIR | Database Host: $AEGIR_DATABASE_SERVER"
 echo "ÆGIR | Makefile: $AEGIR_MAKEFILE"
 echo "ÆGIR | Profile: $AEGIR_PROFILE"
@@ -25,8 +26,8 @@ echo "ÆGIR | -------------------------"
 
 
 if [ ! -d '/var/aegir/.drush/commands/provision' ]; then
-    echo "ÆGIR | Installing provision $AEGIR_VERSION ..."
-    drush dl provision-$AEGIR_VERSION --destination=/var/aegir/.drush/commands -y
+    echo "ÆGIR | Installing provision $PROVISION_VERSION ..."
+    drush dl provision-$PROVISION_VERSION --destination=/var/aegir/.drush/commands -y
 else
     echo "ÆGIR | Provision found. Moving on."
 fi
