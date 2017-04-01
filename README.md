@@ -116,11 +116,11 @@ This image will also make contributing and testing much, much easier.
 
     cd aegir-dockerfile
 
-3. Edit your `/etc/hosts` file to add the container's hostname, which is set in `docker-compose.yml` (aegir.docker by default).  It must point at your docker host.
+3. Edit your `/etc/hosts` file to add the container's hostname, which is set in `docker-compose.yml` (aegir.local.computer by default).  It must point at your docker host.
 
 
-    127.0.0.1  aegir.docker  # If running native linux
-    192.168.99.100  aegir.docker  # If running on OSx, or using default docker-machine
+    127.0.0.1  aegir.local.computer  # If running native linux
+    192.168.99.100  aegir.local.computer  # If running on OSx, or using default docker-machine
 
 4. Build the image. (Optional)
 
@@ -144,14 +144,14 @@ This image will also make contributing and testing much, much easier.
       hostmaster_1 |
       hostmaster_1 | You should now log in to the Aegir frontend by opening the following link in your web browser:
       hostmaster_1 |
-      hostmaster_1 | http://aegir.docker/user/reset/1/1468333477/iKwXpRJ7xhHeiPwhiE2oe5UcswlLeS_fZVALR9EvKZg/login
+      hostmaster_1 | http://aegir.local.computer/user/reset/1/1468333477/iKwXpRJ7xhHeiPwhiE2oe5UcswlLeS_fZVALR9EvKZg/login
       hostmaster_1 |
       hostmaster_1 |
       hostmaster_1 | ==============================================================================
 
   Visit that link, but change the port if you had to change it in docker-compose.
 
-  http://aegir.docker:12345/user/reset/1/abscdf....abcde/login
+  http://aegir.local.computer:12345/user/reset/1/abscdf....abcde/login
 
   That's it!
 
