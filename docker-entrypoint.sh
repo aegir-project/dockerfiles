@@ -104,5 +104,6 @@ echo "ÆGIR | Getting a new login link ... "
 drush @hostmaster uli
 
 # Run whatever is the Docker CMD, typically drush @hostmaster hosting-queued
-echo "ÆGIR | Running '$@' ..."
-`$@`
+echo "ÆGIR | Running Docker Command '$@' ..."
+
+exec "$@"
