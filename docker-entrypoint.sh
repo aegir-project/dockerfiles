@@ -25,11 +25,13 @@ ls -lah /var/aegir/.drush
 echo "ÆGIR | -------------------------"
 
 
-if [ ! -d '/var/aegir/.drush/commands/provision' ]; then
-    echo "ÆGIR | Installing provision $PROVISION_VERSION ..."
-    drush dl provision-$PROVISION_VERSION --destination=/var/aegir/.drush/commands -y
+# Use drush help to determnine if Provision is installed anywhere on the system.
+drush help provision-save > /dev/null 2>&1
+if [ ${PIPESTATUS[0]} == 0 ]; then
+    echo "ÆGIR | Provision Commands found."
 else
-    echo "ÆGIR | Provision found. Moving on."
+    echo "ÆGIR | Provision Commands not found! Installing..."
+    drush dl provision-$PROVISION_VERSION --destination=/var/aegir/.drush/commands -y
 fi
 
 echo "ÆGIR | -------------------------"
