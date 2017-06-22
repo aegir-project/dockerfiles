@@ -1,6 +1,21 @@
+# This Dockerfile is used to change the Aegir user UID to match the host system's user.
+# This allows seamless file sharing via docker volumes.
 
-# The "own" tag is custom built so that the aegir user matches the desired UID, typically from the host.
-# See [prepare.sh](https://github.com/aegir-project/development/blob/master/prepare.sh#L94)
-FROM aegir/hostmaster:own
-VOLUME /var/aegir
+# Use --build-arg option when running docker build to set the desired UID of the "aegir" user.
+
+FROM aegir/hostmaster
+
+USER root
+
+ARG NEW_UID
+
+RUN echo "Attempting to update aegir UID to $NEW_UID ..."
+RUN usermod -u $NEW_UID aegir
+
+RUN echo "Attempting to update aegir GID to $NEW_UID ..."
+RUN groupmod -g $NEW_UID aegir
+
+RUN echo "Attempting to change ownership of /var/aegir to $NEW_UID ..."
+RUN chown $NEW_UID:$NEW_UID /var/aegir -R
+
 USER aegir
