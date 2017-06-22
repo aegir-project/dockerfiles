@@ -16,6 +16,7 @@ RUN echo "Attempting to update aegir GID to $NEW_UID ..."
 RUN groupmod -g $NEW_UID aegir
 
 RUN echo "Attempting to change ownership of /var/aegir to $NEW_UID ..."
-RUN chown $NEW_UID:$NEW_UID /var/aegir -R
+RUN chown $NEW_UID /var/aegir -R
+RUN chgrp $NEW_UID /var/aegir -R
 
 USER aegir
