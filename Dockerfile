@@ -25,7 +25,7 @@ RUN addgroup --gid $AEGIR_UID aegir
 RUN adduser --uid $AEGIR_UID --gid $AEGIR_UID --system --home /var/aegir aegir
 RUN adduser aegir www-data
 RUN a2enmod rewrite
-RUN a2enmod openssl
+RUN a2enmod ssl
 RUN ln -s /var/aegir/config/apache.conf /etc/apache2/conf-available/aegir.conf
 RUN ln -s /etc/apache2/conf-available/aegir.conf /etc/apache2/conf-enabled/aegir.conf
 
