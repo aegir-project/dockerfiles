@@ -105,6 +105,9 @@ ls -lah /var/aegir
 echo "ÆGIR | Getting a new login link ... "
 drush @hostmaster uli
 
+echo "ÆGIR | Clear Hostmaster caches ... "
+drush @hostmaster cc all
+
 # Run whatever is the Docker CMD, typically drush @hostmaster hosting-queued
 echo "ÆGIR | Running Docker Command '$@' ..."
 

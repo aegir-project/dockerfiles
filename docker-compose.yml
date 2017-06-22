@@ -9,12 +9,7 @@ services:
     ports:
       - 80:80
     hostname: aegir.local.computer
-    links:
-      - database
-    depends_on:
-      - database
     environment:
-      VIRTUAL_HOST: aegir.local.computer
       MYSQL_ROOT_PASSWORD: strongpassword
 
   database:
