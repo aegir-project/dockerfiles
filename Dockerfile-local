@@ -3,7 +3,8 @@
 
 # Use --build-arg option when running docker build to set the desired UID of the "aegir" user.
 
-FROM aegir/hostmaster
+# Local almost always wants xdebug.
+FROM aegir/hostmaster:xdebug
 
 USER root
 
