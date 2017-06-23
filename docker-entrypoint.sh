@@ -111,4 +111,4 @@ drush @hostmaster cc all
 # Run whatever is the Docker CMD, typically drush @hostmaster hosting-queued
 echo "ÆGIR | Running Docker Command '$@' ..."
 
-$@
+exec "$@"
