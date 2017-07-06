@@ -1,2 +1,6 @@
 Defaults:aegir  !requiretty
 aegir ALL=NOPASSWD: /usr/sbin/apache2ctl
+aegir ALL=NOPASSWD: /usr/local/bin/fix-drupal-platform-permissions.sh
+aegir ALL=NOPASSWD: /usr/local/bin/fix-drupal-site-permissions.sh
+aegir ALL=NOPASSWD: /usr/local/bin/fix-drupal-platform-ownership.sh
+aegir ALL=NOPASSWD: /usr/local/bin/fix-drupal-site-ownership.sh
