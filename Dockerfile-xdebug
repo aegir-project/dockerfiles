@@ -1,4 +1,4 @@
-FROM aegir/hostmaster
+FROM aegir/hostmaster:dev
 
 USER root
 
