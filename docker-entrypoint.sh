@@ -73,11 +73,12 @@ fi
 
 sleep 3
 
-echo "-------------------------"
-echo "Running: drush cc drush"
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | Running: drush cc drush"
 drush cc drush
 
-echo "Running: drush hostmaster-install"
+echo "ÆGIR | -------------------------"
+echo "ÆGIR | Running: drush hostmaster-install"
 drush hostmaster-install -y --strict=0 $HOSTNAME \
   --aegir_db_host=$AEGIR_DATABASE_SERVER \
   --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
