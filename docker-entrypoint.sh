@@ -103,11 +103,15 @@ drush @hostmaster en hosting_queued -y
 
 ls -lah /var/aegir
 
+echo "ÆGIR | Getting status ... "
+drush @hostmaster status
+
 # We need a ULI here because aegir only outputs one on install, not on subsequent verify.
 echo "ÆGIR | Getting a new login link ... "
 drush @hostmaster uli
 
 echo "ÆGIR | Clear Hostmaster caches ... "
+drush @hostmaster cc drush
 drush @hostmaster cc all
 
 # Run whatever is the Docker CMD, typically drush @hostmaster hosting-queued
