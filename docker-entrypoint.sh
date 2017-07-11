@@ -84,6 +84,7 @@ drush hostmaster-install -y --strict=0 $HOSTNAME \
   --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
   --aegir_db_port=3306 \
   --aegir_db_user=root \
+  --aegir_db_grant_all_hosts=1 \
   --aegir_host=$HOSTNAME \
   --client_name=$AEGIR_CLIENT_NAME \
   --client_email=$AEGIR_CLIENT_EMAIL \
