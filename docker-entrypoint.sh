@@ -108,7 +108,7 @@ echo "ÆGIR | Getting a new login link ... "
 drush @hostmaster uli
 
 echo "ÆGIR | Clear Hostmaster caches ... "
-drush @hostmaster cc drush
+drush cc drush
 drush @hostmaster cc all
 
 # Run whatever is the Docker CMD, typically drush @hostmaster hosting-queued
