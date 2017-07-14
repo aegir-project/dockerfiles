@@ -23,6 +23,9 @@ echo "ÆGIR | -------------------------"
 echo 'ÆGIR | Checking /var/aegir/.drush/...'
 ls -lah /var/aegir/.drush
 echo "ÆGIR | -------------------------"
+echo 'ÆGIR | Checking drush status...'
+drush status
+echo "ÆGIR | -------------------------"
 
 
 # Use drush help to determnine if Provision is installed anywhere on the system.
