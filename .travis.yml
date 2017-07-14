@@ -48,7 +48,7 @@ before_install:
   - cd ..
 
   # First build stock image, and one for own user.
-  - sudo docker build --rm -t aegir/hostmaster .
+  - sudo docker build --rm -t aegir/hostmaster:dev .
   - sudo docker build --rm -t aegir/hostmaster:local -f Dockerfile-local --build-arg NEW_UID=$UID .
 
 script:
