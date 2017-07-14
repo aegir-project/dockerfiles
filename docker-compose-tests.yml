@@ -3,7 +3,7 @@ version: '2'
 services:
 
   hostmaster:
-    image: aegir/hostmaster
+    image: aegir/hostmaster:dev
     command:
       - run-tests.sh
     ports:
@@ -16,8 +16,6 @@ services:
     environment:
       VIRTUAL_HOST: aegir.local.computer
       MYSQL_ROOT_PASSWORD: strongpassword
-    tty: true
-    stdin_open: true
 
   database:
     image: mariadb
