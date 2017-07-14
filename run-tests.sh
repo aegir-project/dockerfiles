@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # If /var/aegir/tests does't already exist, clone it.
 echo "run-tests.sh | Starting run-tests.sh..."
 
