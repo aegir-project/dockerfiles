@@ -56,4 +56,4 @@ before_install:
 script:
 
   # Launch docker-compose.yml file within tests repo.
-  - docker-compose -T --file docker-compose-tests.yml run hostmaster
+  - docker-compose run -T --file docker-compose-tests.yml hostmaster
