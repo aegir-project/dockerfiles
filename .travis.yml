@@ -32,12 +32,14 @@ before_install:
   # Debugging users
   - whoami
   - id -u
+  - docker --version
+  - docker-compose --version
 
   # upgrade docker-engine to specific version
   - git clone http://github.com/aegir-project/tests.git
   - cd tests
   - git checkout $AEGIR_TESTS_VERSION
-  - sudo bash travis/prepare-docker.sh
+#  - sudo bash travis/prepare-docker.sh
 
   - sudo mkdir vendor
   - sudo chmod 777 vendor
@@ -48,10 +50,11 @@ before_install:
   - cd ..
 
   # First build stock image, and one for own user.
-  - sudo docker build --rm -t aegir/hostmaster .
-  - sudo docker build --rm -t aegir/hostmaster:local -f Dockerfile-local --build-arg NEW_UID=$UID .
+  - docker build --rm -t aegir/hostmaster:dev .
+  - docker build --rm -t aegir/hostmaster:local -f Dockerfile-local --build-arg NEW_UID=$UID .
 
 script:
 
   # Launch docker-compose.yml file within tests repo.
-  - sudo docker-compose --file docker-compose-tests.yml run hostmaster
+  - docker-compose --file docker-compose-tests.yml run -T -e TERM=xterm hostmaster
+

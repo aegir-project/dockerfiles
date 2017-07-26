@@ -23,6 +23,9 @@ echo "ÆGIR | -------------------------"
 echo 'ÆGIR | Checking /var/aegir/.drush/...'
 ls -lah /var/aegir/.drush
 echo "ÆGIR | -------------------------"
+echo 'ÆGIR | Checking drush status...'
+drush status
+echo "ÆGIR | -------------------------"
 
 
 # Use drush help to determnine if Provision is installed anywhere on the system.
@@ -108,6 +111,7 @@ echo "ÆGIR | Getting a new login link ... "
 drush @hostmaster uli
 
 echo "ÆGIR | Clear Hostmaster caches ... "
+drush cc drush
 drush @hostmaster cc all
 
 # Run whatever is the Docker CMD, typically drush @hostmaster hosting-queued
