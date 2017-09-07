@@ -39,6 +39,10 @@ RUN wget https://github.com/drush-ops/drush/releases/download/8.1.12/drush.phar 
 RUN chmod +x /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/drush
 
+# Install fix-permissions and fix-ownership scripts
+RUN wget http://cgit.drupalcode.org/hosting_tasks_extra/plain/fix_permissions/scripts/standalone-install-fix-permissions-ownership.sh
+RUN bash standalone-install-fix-permissions-ownership.sh
+
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
