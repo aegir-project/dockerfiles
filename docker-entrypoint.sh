@@ -14,6 +14,7 @@ echo "ÆGIR | Profile: $AEGIR_PROFILE"
 echo "ÆGIR | Root: $AEGIR_HOSTMASTER_ROOT"
 echo "ÆGIR | Client Name: $AEGIR_CLIENT_NAME"
 echo "ÆGIR | Client Email: $AEGIR_CLIENT_EMAIL"
+echo "ÆGIR | Working Copy: $AEGIR_WORKING_COPY"
 echo "ÆGIR | -------------------------"
 echo "ÆGIR | TIP: To receive an email when the container is ready, add the AEGIR_CLIENT_EMAIL environment variable to your docker-compose.yml file."
 echo "ÆGIR | -------------------------"
@@ -82,6 +83,8 @@ drush cc drush
 
 echo "ÆGIR | -------------------------"
 echo "ÆGIR | Running: drush hostmaster-install"
+
+set -ex
 drush hostmaster-install -y --strict=0 $HOSTNAME \
   --aegir_db_host=$AEGIR_DATABASE_SERVER \
   --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
@@ -93,8 +96,8 @@ drush hostmaster-install -y --strict=0 $HOSTNAME \
   --client_email=$AEGIR_CLIENT_EMAIL \
   --makefile=$AEGIR_MAKEFILE \
   --profile=$AEGIR_PROFILE \
-  --root=$AEGIR_HOSTMASTER_ROOT
-
+  --root=$AEGIR_HOSTMASTER_ROOT \
+  --working-copy=$AEGIR_WORKING_COPY
 # Exit on the first failed line.
 set -e
 

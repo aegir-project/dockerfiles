@@ -79,6 +79,7 @@ ENV AEGIR_CLIENT_NAME admin
 ENV AEGIR_PROFILE hostmaster
 ENV AEGIR_VERSION 7.x-3.x
 ENV PROVISION_VERSION 7.x-3.x
+ENV AEGIR_WORKING_COPY 0
 
 # Must be fixed across versions so we can upgrade containers.
 ENV AEGIR_HOSTMASTER_ROOT /var/aegir/hostmaster
