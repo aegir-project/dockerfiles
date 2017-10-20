@@ -8,7 +8,7 @@ FROM aegir/hostmaster:dev
 
 USER root
 
-ARG NEW_UID
+ARG NEW_UID=1000
 
 RUN echo "Attempting to update aegir UID to $NEW_UID ..."
 RUN usermod -u $NEW_UID aegir
