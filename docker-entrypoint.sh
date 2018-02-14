@@ -66,38 +66,40 @@ if [ ${PIPESTATUS[0]} == 0 ]; then
       echo "ÆGIR | Running 'drush @hostmaster hostmaster-migrate $HOSTNAME $AEGIR_HOSTMASTER_ROOT -y'...!"
       drush @hostmaster hostmaster-migrate $HOSTNAME $AEGIR_HOSTMASTER_ROOT -y
   else
-      echo "ÆGIR | Site already found at $AEGIR_HOSTMASTER_ROOT/sites/$HOSTNAME"
+      echo "ÆGIR | Site found at $AEGIR_HOSTMASTER_ROOT/sites/$HOSTNAME"
   fi
-
 
 # if @hostmaster is not accessible, install it.
 else
   echo "ÆGIR | Hostmaster not found. Continuing with install!"
+
+  echo "ÆGIR | -------------------------"
+  echo "ÆGIR | Running: drush cc drush"
+  drush cc drush
+
+  echo "ÆGIR | -------------------------"
+  echo "ÆGIR | Running: drush hostmaster-install"
+
+  set -ex
+  drush hostmaster-install -y --strict=0 $HOSTNAME \
+    --aegir_db_host=$AEGIR_DATABASE_SERVER \
+    --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
+    --aegir_db_port=3306 \
+    --aegir_db_user=root \
+    --aegir_db_grant_all_hosts=1 \
+    --aegir_host=$HOSTNAME \
+    --client_name=$AEGIR_CLIENT_NAME \
+    --client_email=$AEGIR_CLIENT_EMAIL \
+    --makefile=$AEGIR_MAKEFILE \
+    --profile=$AEGIR_PROFILE \
+    --root=$AEGIR_HOSTMASTER_ROOT \
+    --working-copy=$AEGIR_WORKING_COPY
+
 fi
 
 sleep 3
 
-echo "ÆGIR | -------------------------"
-echo "ÆGIR | Running: drush cc drush"
-drush cc drush
 
-echo "ÆGIR | -------------------------"
-echo "ÆGIR | Running: drush hostmaster-install"
-
-set -ex
-drush hostmaster-install -y --strict=0 $HOSTNAME \
-  --aegir_db_host=$AEGIR_DATABASE_SERVER \
-  --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
-  --aegir_db_port=3306 \
-  --aegir_db_user=root \
-  --aegir_db_grant_all_hosts=1 \
-  --aegir_host=$HOSTNAME \
-  --client_name=$AEGIR_CLIENT_NAME \
-  --client_email=$AEGIR_CLIENT_EMAIL \
-  --makefile=$AEGIR_MAKEFILE \
-  --profile=$AEGIR_PROFILE \
-  --root=$AEGIR_HOSTMASTER_ROOT \
-  --working-copy=$AEGIR_WORKING_COPY
 # Exit on the first failed line.
 set -e
 
