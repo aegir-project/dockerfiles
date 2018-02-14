@@ -67,6 +67,9 @@ if [ ${PIPESTATUS[0]} == 0 ]; then
       drush @hostmaster hostmaster-migrate $HOSTNAME $AEGIR_HOSTMASTER_ROOT -y
   else
       echo "ÆGIR | Site found at $AEGIR_HOSTMASTER_ROOT/sites/$HOSTNAME"
+      echo "ÆGIR | -------------------------"
+      echo "ÆGIR | Running: drush @hostmaster provision-verify"
+      drush @hostmaster provision-verify
   fi
 
 # if @hostmaster is not accessible, install it.
