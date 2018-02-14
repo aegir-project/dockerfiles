@@ -19,4 +19,4 @@ echo "run-tests.sh | Running composer install..."
 composer install
 
 echo "run-tests.sh | Running bin/behat..."
-bin/behat
+bin/behat --colors
