@@ -12,8 +12,8 @@ fi
 
 cd /var/aegir/tests
 
-echo "run-tests.sh | Running composer update..."
-composer update
+#echo "run-tests.sh | Running composer update..."
+#composer update
 
 echo "run-tests.sh | Running composer install..."
 composer install
