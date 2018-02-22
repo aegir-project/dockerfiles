@@ -35,7 +35,7 @@ RUN chmod 0440 /etc/sudoers.d/aegir
 RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet
 RUN cp composer.phar /usr/local/bin/composer
 
-RUN wget https://github.com/drush-ops/drush/releases/download/8.1.12/drush.phar -O - -q > /usr/local/bin/drush
+RUN wget https://github.com/drush-ops/drush/releases/download/8.1.16/drush.phar -O - -q > /usr/local/bin/drush
 RUN chmod +x /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/drush
 
