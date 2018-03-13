@@ -14,8 +14,10 @@ RUN apt-get update -qq && apt-get install -y -qq\
   php7.0-opcache \
   php7.0-xml \
   php7.0-mbstring \
+  php7.0-mysql \
   php-sqlite3 \
   php-apcu \
+  libapache2-mod-php \
   postfix \
   sudo \
   rsync \
