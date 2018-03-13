@@ -1,14 +1,11 @@
 FROM aegir/hostmaster
 
 USER root
-ENV DOCKER_VERSION 17.12.1-ce
 ENV DOCKER_COMPOSE_VERSION 1.19.0
 
-
 # Install the docker client.
-RUN wget -q https://get.docker.com/builds/Linux/x86_64/docker-$DOCKER_VERSION && \
-    cp docker-1.9.1 /usr/bin/docker && \
-    chmod +x /usr/bin/docker
+RUN wget -q https://get.docker.com -O /root/get-docker.sh
+RUN sh /root/get-docker.sh > /dev/null
 
 # Install docker-compose.
 RUN  wget -q "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" && \
