@@ -36,7 +36,7 @@ ENV AEGIR_UID ${AEGIR_UID:-1000}
 RUN echo "Creating user aegir with UID $AEGIR_UID and GID $AEGIR_GID"
 
 RUN addgroup --gid $AEGIR_UID aegir
-RUN adduser --uid $AEGIR_UID --gid $AEGIR_UID --system --home /var/aegir aegir
+RUN adduser --uid $AEGIR_UID --gid $AEGIR_UID --system --shell /bin/bash --home /var/aegir aegir
 RUN adduser aegir www-data
 RUN a2enmod rewrite
 
