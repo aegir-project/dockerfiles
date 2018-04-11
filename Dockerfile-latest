@@ -15,7 +15,8 @@ RUN apt-get update -qq && apt-get install -y -qq\
   git-core \
   unzip \
   wget \
-  mysql-client
+  mysql-client \
+  curl
 
 ENV AEGIR_UID 1000
 
