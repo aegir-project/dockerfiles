@@ -1,4 +1,4 @@
-FROM aegir/hostmaster
+FROM aegir/hostmaster:php7
 
 USER root
 ENV DOCKER_COMPOSE_VERSION 1.19.0
