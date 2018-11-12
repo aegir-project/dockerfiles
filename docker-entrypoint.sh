@@ -9,6 +9,7 @@ echo "ÆGIR | Hostname: $HOSTNAME"
 echo "ÆGIR | Version: $AEGIR_VERSION"
 echo "ÆGIR | Provision Version: $PROVISION_VERSION"
 echo "ÆGIR | Database Host: $AEGIR_DATABASE_SERVER"
+echo "ÆGIR | Web Server Type: $AEGIR_HTTP_SERVICE_TYPE"
 echo "ÆGIR | Makefile: $AEGIR_MAKEFILE"
 echo "ÆGIR | Profile: $AEGIR_PROFILE"
 echo "ÆGIR | Root: $AEGIR_HOSTMASTER_ROOT"
@@ -91,6 +92,7 @@ else
     --aegir_host=$HOSTNAME \
     --client_name=$AEGIR_CLIENT_NAME \
     --client_email=$AEGIR_CLIENT_EMAIL \
+    --http_service_type=$AEGIR_HTTP_SERVICE_TYPE \
     --makefile=$AEGIR_MAKEFILE \
     --profile=$AEGIR_PROFILE \
     --root=$AEGIR_HOSTMASTER_ROOT \
