@@ -2,6 +2,7 @@ FROM ubuntu:17.10
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qq && apt-get install -y -qq\
   apache2 \
+  curl \
   php7.1-common \
   php7.1-cli \
   php7.1-dev \

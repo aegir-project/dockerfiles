@@ -2,6 +2,7 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qq && apt-get install -y -qq\
   apache2 \
+  curl \
   php-common \
   php-cli \
   php-dev \
