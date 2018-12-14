@@ -1,5 +1,23 @@
 FROM ubuntu:14.04
 
+# You may change this environment at run time. User UID 1 is created with this email address.
+ENV AEGIR_CLIENT_EMAIL aegir@aegir.local.computer
+ENV AEGIR_CLIENT_NAME admin
+ENV AEGIR_PROFILE hostmaster
+ENV AEGIR_VERSION 7.x-3.x
+ENV PROVISION_VERSION 7.x-3.x
+ENV AEGIR_WORKING_COPY 0
+ENV AEGIR_HTTP_SERVICE_TYPE apache
+
+# Must be fixed across versions so we can upgrade containers.
+ENV AEGIR_HOSTMASTER_ROOT /var/aegir/hostmaster
+
+# The Hostname of the database server to use
+ENV AEGIR_DATABASE_SERVER database
+
+# For dev images (7.x-3.x branch)
+ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir.make
+
 RUN apt-get update -qq && apt-get install -y -qq\
   apache2 \
   curl \
@@ -74,25 +92,7 @@ USER aegir
 RUN mkdir /var/aegir/config
 RUN mkdir /var/aegir/.drush
 
-# You may change this environment at run time. User UID 1 is created with this email address.
-ENV AEGIR_CLIENT_EMAIL aegir@aegir.local.computer
-ENV AEGIR_CLIENT_NAME admin
-ENV AEGIR_PROFILE hostmaster
-ENV AEGIR_VERSION 7.x-3.x
-ENV PROVISION_VERSION 7.x-3.x
-ENV AEGIR_WORKING_COPY 0
-ENV AEGIR_HTTP_SERVICE_TYPE apache
-
-# Must be fixed across versions so we can upgrade containers.
-ENV AEGIR_HOSTMASTER_ROOT /var/aegir/hostmaster
-
 WORKDIR /var/aegir
-
-# The Hostname of the database server to use
-ENV AEGIR_DATABASE_SERVER database
-
-# For dev images (7.x-3.x branch)
-ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir.make
 
 # For Releases:
 # ENV AEGIR_MAKEFILE http://cgit.drupalcode.org/provision/plain/aegir-release.make?h=$AEGIR_VERSION
