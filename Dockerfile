@@ -59,7 +59,7 @@ RUN chmod +x /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/drush
 
 # Install fix-permissions and fix-ownership scripts
-RUN wget http://cgit.drupalcode.org/hosting_tasks_extra/plain/fix_permissions/scripts/standalone-install-fix-permissions-ownership.sh
+RUN wget http://cgit.drupalcode.org/hosting_tasks_extra/plain/fix_permissions/scripts/standalone-install-fix-permissions-ownership.sh?id=$AEGIR_VERSION
 RUN bash standalone-install-fix-permissions-ownership.sh
 
 COPY docker-entrypoint.sh /usr/local/bin/
