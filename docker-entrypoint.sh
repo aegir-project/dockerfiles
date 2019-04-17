@@ -83,17 +83,16 @@ else
   echo "ÆGIR | Running: drush hostmaster-install"
 
   set -ex
-  /usr/local/bin/provision create:ui
-    --site=$HOSTNAME \
-    --db_host=$AEGIR_DATABASE_SERVER \
-    --db_pass=$MYSQL_ROOT_PASSWORD \
-    --db_port=3306 \
-    --db_user=root \
-    --db_grant_all_hosts=1 \
-    --remote_host=$HOSTNAME \
+  drush hostmaster-install -y --strict=0 $HOSTNAME \
+    --aegir_db_host=$AEGIR_DATABASE_SERVER \
+    --aegir_db_pass=$MYSQL_ROOT_PASSWORD \
+    --aegir_db_port=3306 \
+    --aegir_db_user=root \
+    --aegir_db_grant_all_hosts=1 \
+    --aegir_host=$HOSTNAME \
     --client_name=$AEGIR_CLIENT_NAME \
     --client_email=$AEGIR_CLIENT_EMAIL \
-    --server_http=$AEGIR_HTTP_SERVICE_TYPE \
+    --http_service_type=$AEGIR_HTTP_SERVICE_TYPE \
     --makefile=$AEGIR_MAKEFILE \
     --profile=$AEGIR_PROFILE \
     --root=$AEGIR_HOSTMASTER_ROOT \
