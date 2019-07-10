@@ -2,31 +2,31 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qq && apt-get install -y -qq\
   apache2 \
+  cron \
   curl \
-  php-common \
+  git-core \
+  libapache2-mod-php \
+  libpcre3-dev \
+  mysql-client
+  php-apcu \
   php-cli \
+  php-common \
+  php-curl \
   php-dev \
   php-fpm \
-  libpcre3-dev \
   php-gd \
-  php-curl \
   php-imap \
   php-json \
-  php-opcache \
-  php-xml \
   php-mbstring \
   php-mysql \
+  php-opcache \
   php-sqlite3 \
-  php-apcu \
-  libapache2-mod-php \
-  cron \
+  php-xml \
   postfix \
-  sudo \
   rsync \
-  git-core \
+  sudo \
   unzip \
   wget \
-  mysql-client
 
 # Use --build-arg option when running docker build to set these variables.
 # If wish to "mount" a volume to your host, set AEGIR_UID and AEGIR_GIT to your local user's UID.

@@ -2,31 +2,31 @@ FROM ubuntu:17.10
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qq && apt-get install -y -qq\
   apache2 \
+  cron \
   curl \
-  php7.1-common \
+  git-core \
+  libapache2-mod-php \
+  libpcre3-dev \
+  mysql-client
+  php-apcu \
+  php-sqlite3 \
   php7.1-cli \
+  php7.1-common \
+  php7.1-curl \
   php7.1-dev \
   php7.1-fpm \
-  libpcre3-dev \
   php7.1-gd \
-  php7.1-curl \
   php7.1-imap \
   php7.1-json \
-  php7.1-opcache \
-  php7.1-xml \
   php7.1-mbstring \
   php7.1-mysql \
-  php-sqlite3 \
-  php-apcu \
-  libapache2-mod-php \
-  cron \
+  php7.1-opcache \
+  php7.1-xml \
   postfix \
-  sudo \
   rsync \
-  git-core \
+  sudo \
   unzip \
-  wget \
-  mysql-client
+  wget
 
 # Use --build-arg option when running docker build to set these variables.
 # If wish to "mount" a volume to your host, set AEGIR_UID and AEGIR_GIT to your local user's UID.
