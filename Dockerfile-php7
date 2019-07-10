@@ -50,7 +50,7 @@ RUN ln -s /etc/apache2/conf-available/aegir.conf /etc/apache2/conf-enabled/aegir
 COPY sudoers-aegir /etc/sudoers.d/aegir
 RUN chmod 0440 /etc/sudoers.d/aegir
 
-RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/35ca72b506eba32c0baed4d283a5f834968e5ade/web/installer -O - -q | php -- --quiet
+RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/e831e1e4d6cabfb11fa9657103cf728e6eb9e295/web/installer -O - -q | php -- --quiet
 RUN cp composer.phar /usr/local/bin/composer
 
 RUN wget https://github.com/drush-ops/drush/releases/download/8.1.16/drush.phar -O - -q > /usr/local/bin/drush
