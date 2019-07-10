@@ -7,7 +7,8 @@ RUN apt-get update -qq && apt-get install -y -qq\
   git-core \
   libapache2-mod-php \
   libpcre3-dev \
-  mysql-client
+  mysql-client \
+  nano \
   php-apcu \
   php-sqlite3 \
   php7.1-cli \
@@ -26,6 +27,7 @@ RUN apt-get update -qq && apt-get install -y -qq\
   rsync \
   sudo \
   unzip \
+  vim \
   wget
 
 # Use --build-arg option when running docker build to set these variables.

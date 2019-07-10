@@ -7,7 +7,8 @@ RUN apt-get update -qq && apt-get install -y -qq\
   git-core \
   libapache2-mod-php \
   libpcre3-dev \
-  mysql-client
+  mysql-client \
+  nano \
   php-apcu \
   php-cli \
   php-common \
@@ -26,7 +27,8 @@ RUN apt-get update -qq && apt-get install -y -qq\
   rsync \
   sudo \
   unzip \
-  wget \
+  vim \
+  wget
 
 # Use --build-arg option when running docker build to set these variables.
 # If wish to "mount" a volume to your host, set AEGIR_UID and AEGIR_GIT to your local user's UID.
