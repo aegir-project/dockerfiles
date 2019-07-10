@@ -1,4 +1,4 @@
-FROM aegir/hostmaster:php71
+FROM aegir/hostmaster:php72
 
 USER root
 
